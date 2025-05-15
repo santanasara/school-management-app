@@ -18,14 +18,22 @@ erDiagram
   DISCIPLINA {
     int id
     string nome
-    string ementa
+    string descricao
     int curso_id
+  }
+
+  TURMA {
+    int id
+    string nome
+    string periodo
+    int disciplina_id
+    int instrutor_id
   }
 
   MATRICULA {
     int id
     int aluno_id
-    int disciplina_id
+    int turma_id
     date data_matricula
   }
 
@@ -45,15 +53,6 @@ erDiagram
     date data_lancamento
   }
 
-  FORUMPOST {
-    int id
-    string titulo
-    string conteudo
-    int autor_id
-    int disciplina_id
-    date data_postagem
-  }
-
   MENSAGEM {
     int id
     string assunto
@@ -63,16 +62,25 @@ erDiagram
     date data_envio
   }
 
-  USUARIO ||--o{ MATRICULA : possui
-  USUARIO ||--o{ NOTA : recebe
-  USUARIO ||--o{ FORUMPOST : escreve
+  ATIVIDADE {
+    int id
+    string titulo
+    string descricao
+    date data_limite
+    int disciplina_id
+  }
+
+  USUARIO ||--o{ MATRICULA : participa
   USUARIO ||--o{ MENSAGEM : envia
   USUARIO ||--o{ MENSAGEM : recebe
+  USUARIO ||--o{ NOTA : recebe
+  USUARIO ||--o{ TURMA : leciona
 
-  CURSO ||--o{ DISCIPLINA : contem
-  DISCIPLINA ||--o{ MATRICULA : possui
+  CURSO ||--o{ DISCIPLINA : inclui
+  DISCIPLINA ||--o{ TURMA : organiza
   DISCIPLINA ||--o{ MATERIAL : possui
-  DISCIPLINA ||--o{ NOTA : possui
-  DISCIPLINA ||--o{ FORUMPOST : possui
+  DISCIPLINA ||--o{ NOTA : atribui
+  DISCIPLINA ||--o{ ATIVIDADE : possui
 
+  TURMA ||--o{ MATRICULA : contem
 ```
