@@ -1,9 +1,18 @@
 ```mermaid
 erDiagram
 
+  PESSOA {
+    string nome
+    string cpf
+  }
+
+  PERMISSAO {
+    string nome
+  }
+
   USUARIO {
     int id
-    string nome
+    string login
     string email
     string senha
     string perfil
@@ -47,8 +56,7 @@ erDiagram
 
   NOTA {
     int id
-    int aluno_id
-    int disciplina_id
+    int matricula_id
     float valor
     date data_lancamento
   }
@@ -70,17 +78,20 @@ erDiagram
     int disciplina_id
   }
 
+  PESSOA ||--|| USUARIO : e
+
   USUARIO ||--o{ MATRICULA : participa
   USUARIO ||--o{ MENSAGEM : envia
   USUARIO ||--o{ MENSAGEM : recebe
-  USUARIO ||--o{ NOTA : recebe
   USUARIO ||--o{ TURMA : leciona
+  USUARIO }o--o{ PERMISSAO : tem
 
   CURSO ||--o{ DISCIPLINA : inclui
   DISCIPLINA ||--o{ TURMA : organiza
-  DISCIPLINA ||--o{ MATERIAL : possui
-  DISCIPLINA ||--o{ NOTA : atribui
-  DISCIPLINA ||--o{ ATIVIDADE : possui
 
   TURMA ||--o{ MATRICULA : contem
+  TURMA ||--o{ ATIVIDADE : possui
+  TURMA ||--o{ MATERIAL : possui
+
+  MATRICULA ||--o{ NOTA : recebe
 ```
