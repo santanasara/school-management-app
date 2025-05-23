@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { PessoaModule } from './pessoa/pessoa.module';
+import { UsuarioModule } from './usuario/usuario.module';
 
 
 function getEnvFilePath(): string {
@@ -25,6 +26,7 @@ function getEnvFilePath(): string {
       envFilePath: getEnvFilePath(),
     }),
     PessoaModule,
+    UsuarioModule,
   ],
   controllers: [AppController],
   providers: [AppService],
