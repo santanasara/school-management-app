@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
+import { PessoaModule } from './pessoa/pessoa.module';
 
 
 function getEnvFilePath(): string {
@@ -23,6 +24,7 @@ function getEnvFilePath(): string {
       isGlobal: true,
       envFilePath: getEnvFilePath(),
     }),
+    PessoaModule,
   ],
   controllers: [AppController],
   providers: [AppService],
