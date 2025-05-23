@@ -1,36 +1,32 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CursoModule } from './curso/curso.module';
-import { Curso } from './curso/entities/curso.entity';
+import { ConfigModule } from '@nestjs/config';
+import { PessoaModule } from './pessoa/pessoa.module';
+import { UsuarioModule } from './usuario/usuario.module';
+
+
+function getEnvFilePath(): string {
+  switch (process.env.NODE_ENV) {
+    case 'production':
+      return '.env.prod';
+    case 'development':
+      return '.env';
+    case 'debug':
+      return '.env.debug';
+    default:
+      return '.env'; // fallback
+  }
+}
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, // garante que as variáveis estejam disponíveis em todo o app
+      isGlobal: true,
+      envFilePath: getEnvFilePath(),
     }),
-
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        return {
-          type: 'postgres',
-          host: configService.get<string>('DATABASE_HOST'),
-          port: Number(configService.get<string>('DATABASE_PORT') || 5432),
-          username: configService.get<string>('DATABASE_USER'),
-          password: configService.get<string>('DATABASE_PASSWORD'),
-          database: configService.get<string>('DATABASE_NAME'),
-          autoLoadEntities: true,
-          entities: [Curso],
-          synchronize: true,
-        };
-      },
-    }),
-
-    CursoModule,
+    PessoaModule,
+    UsuarioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

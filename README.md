@@ -18,3 +18,9 @@ O repositório é organizado em duas principais pastas:
 
 1. **`backend/`**: Contém o código do servidor desenvolvido em NestJS.
 2. **`frontend/`**: Contém o código do cliente desenvolvido em Angular.
+
+## Configuração dos .env
+O sistema lerá as informações do arquivo enviroument correspondente ao ambiente (Dev, Debug e produção)
+- **yarn start** e **yarn start:dev**: Leem as informações do arquivo _.env_
+- **yarn start:debug**: Leem as informações do arquivo _.env.debug_
+- **yarn start:prod**: Leem as informações do arquivo _.env.prod_
