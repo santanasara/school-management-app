@@ -8,6 +8,7 @@ import { TurmaModule } from './turma/turma.module';
 import { AtividadeModule } from './atividade/atividade.module';
 import { DatabaseModule } from './config/database.module';
 import { DisciplinaModule } from './disciplina/disciplina.module';
+import { CursoModule } from './curso/curso.module';
 
 function getEnvFilePath(): string {
   switch (process.env.NODE_ENV) {
@@ -31,6 +32,7 @@ function getEnvFilePath(): string {
     DatabaseModule,
     PessoaModule,
     UsuarioModule,
+    CursoModule,
     TurmaModule,
     AtividadeModule,
     DisciplinaModule,
