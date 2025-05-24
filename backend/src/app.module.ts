@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { PessoaModule } from './pessoa/pessoa.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { TurmaModule } from './turma/turma.module';
+import { AtividadeModule } from './atividade/atividade.module';
 
 
 function getEnvFilePath(): string {
@@ -27,6 +29,8 @@ function getEnvFilePath(): string {
     }),
     PessoaModule,
     UsuarioModule,
+    TurmaModule,
+    AtividadeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
