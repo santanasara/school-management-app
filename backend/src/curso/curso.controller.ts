@@ -31,4 +31,19 @@ export class CursoController {
   remove(@Param('id') id: string) {
     return this.cursoService.remove(+id);
   }
+
+  @Get('ativos')
+  findAtivos() {
+    return this.cursoService.findAtivos();
+  }
+
+  @Get('buscar-por-nome/:nome')
+  findByNome(@Param('nome') nome: string) {
+    return this.cursoService.findByNome(nome);
+  }
+
+  @Get('carga-maior-que/:min')
+  findByCargaMinima(@Param('min') min: number) {
+    return this.cursoService.findByCargaHorariaMinima(Number(min));
+  }
 }
