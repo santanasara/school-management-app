@@ -1,0 +1,30 @@
+<h3>Editar Curso</h3>
+
+<form [formGroup]="cursoForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="nome">Nome do Curso:</label>
+    <input id="nome" type="text" formControlName="nome">
+    <div *ngIf="cursoForm.get('nome')?.invalid && cursoForm.get('nome')?.touched" class="error-message">
+      Nome do curso é obrigatório.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="cargaHoraria">Carga Horária (horas):</label>
+    <input id="cargaHoraria" type="number" formControlName="cargaHoraria">
+    <div *ngIf="cursoForm.get('cargaHoraria')?.invalid && cursoForm.get('cargaHoraria')?.touched" class="error-message">
+      Carga horária é obrigatória e deve ser um número positivo.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="professor">Professor:</label>
+    <input id="professor" type="text" formControlName="professor">
+    <div *ngIf="cursoForm.get('professor')?.invalid && cursoForm.get('professor')?.touched" class="error-message">
+      Professor é obrigatório.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="cursoForm.invalid">Salvar Alterações</button>
+  <button type="button" class="cancel-button" [routerLink]="['/cursos']">Cancelar</button>
+</form>
