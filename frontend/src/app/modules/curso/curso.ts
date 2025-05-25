@@ -1,5 +1,5 @@
 export interface Curso {
-  id?: number; // Opcional para quando estiver criando um novo curso
+  id?: number; 
   nome: string;
   cargaHoraria: number;
 }
