@@ -3,7 +3,7 @@ import { CursoService } from './curso.service';
 import { CreateCursoDto } from './dto/create-curso.dto';
 import { UpdateCursoDto } from './dto/update-curso.dto';
 
-@Controller('curso')
+@Controller('cursos')
 export class CursoController {
   constructor(private readonly cursoService: CursoService) {}
 
