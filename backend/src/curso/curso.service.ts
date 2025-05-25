@@ -31,14 +31,12 @@ export class CursoService {
     return this.cursoRepository.find({ where: { status: true } });
   }
 
-  // 2. Buscar cursos por nome (com ILike para filtro parcial)
   async findByNome(nome: string): Promise<Curso[]> {
     return this.cursoRepository.find({
       where: { nome: ILike(`%${nome}%`) },
     });
   }
 
-  // 3. Buscar cursos com carga horária maior que X
   async findByCargaHorariaMinima(min: number): Promise<Curso[]> {
     return this.cursoRepository
       .createQueryBuilder('curso')

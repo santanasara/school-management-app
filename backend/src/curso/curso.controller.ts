@@ -17,6 +17,11 @@ export class CursoController {
     return this.cursoService.findAll();
   }
 
+  @Get('ativos')
+  findAtivos() {
+    return this.cursoService.findAtivos();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.cursoService.findOne(+id);
@@ -30,11 +35,6 @@ export class CursoController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.cursoService.remove(+id);
-  }
-
-  @Get('ativos')
-  findAtivos() {
-    return this.cursoService.findAtivos();
   }
 
   @Get('buscar-por-nome/:nome')
