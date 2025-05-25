@@ -13,4 +13,7 @@ export class Curso {
 
   @Column({ name: 'carga_horaria' })
   cargaHoraria: number;
+
+  @Column({ default: true })
+  status: boolean;
 }
