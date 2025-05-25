@@ -27,9 +27,10 @@ export class CursoListComponent implements OnInit {
 
   loadCursos(): void {
     this.cursoService.getCursos().subscribe(data => {
+      console.log('Dados de cursos recebidos do serviço:', data); // <--- Adicione esta linha
       this.cursos = data;
-    });
-  }
+  });
+}
 
   editCurso(id: number | undefined): void {
     if (id !== undefined) {
