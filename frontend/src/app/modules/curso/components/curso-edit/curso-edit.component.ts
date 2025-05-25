@@ -33,12 +33,12 @@ export class CursoEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.cursoForm = this.fb.group({
-      id: [''], // Campo oculto para o ID
+      id: [''], 
       nome: ['', Validators.required],
+      descricao: ['', Validators.required],
       cargaHoraria: ['', [Validators.required, Validators.min(1)]],
     });
 
-    // Obtém o ID da rota e carrega os dados do curso
     this.route.paramMap.pipe(
       switchMap(params => {
         const idParam = params.get('id');
