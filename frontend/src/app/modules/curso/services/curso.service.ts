@@ -33,4 +33,16 @@ export class CursoService {
   deleteCurso(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  getCursosAtivos(): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.apiUrl}/ativos`);
+  }
+
+  getCursosPorNome(nome: string): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.apiUrl}/buscar-por-nome/${nome}`);
+  }
+
+  getCursosPorCargaMinima(min: number): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.apiUrl}/carga-maior-que/${min}`);
+  }
 }
