@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CursoService } from '../../services/curso.service';
-import { Curso } from '../../curso'; 
+import { Curso } from '../../models/curso'; 
 import { switchMap } from 'rxjs/operators'; // Para encadear observables
 import { Observable } from 'rxjs';
 

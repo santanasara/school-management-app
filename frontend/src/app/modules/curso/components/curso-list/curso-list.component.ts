@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router'; // Router para navegação programática
 import { CursoService } from '../../services/curso.service';
-import { Curso } from '../../curso'; 
+import { Curso } from '../../models/curso'; 
 
 @Component({
   selector: 'app-curso-list',

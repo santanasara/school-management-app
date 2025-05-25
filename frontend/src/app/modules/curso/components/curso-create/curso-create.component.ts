@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'; // Para formulários reativos
 import { Router, RouterLink} from '@angular/router'; // Para navegação após a criação
 import { CursoService } from '../../services/curso.service';
-import { Curso } from '../../curso'; 
+import { Curso } from '../../models/curso'; 
 
 
 @Component({
@@ -31,6 +31,7 @@ export class CursoCreateComponent implements OnInit {
   ngOnInit(): void {
     this.cursoForm = this.fb.group({
       nome: ['', Validators.required],
+      descricao: ['', Validators.required],
       cargaHoraria: ['', [Validators.required, Validators.min(1)]],
     });
   }
@@ -40,7 +41,7 @@ export class CursoCreateComponent implements OnInit {
       const novoCurso: Curso = this.cursoForm.value;
       this.cursoService.createCurso(novoCurso).subscribe(() => {
         console.log('Curso criado com sucesso!');
-        this.router.navigate(['/cursos']); // Redireciona para a lista de cursos
+        this.router.navigate(['/cursos']); 
       });
     } else {
       console.log('Formulário inválido. Preencha todos os campos obrigatórios.');
