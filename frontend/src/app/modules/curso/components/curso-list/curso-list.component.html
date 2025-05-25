@@ -1,0 +1,34 @@
+<h3>Lista de Cursos</h3>
+
+<button class="add-button" [routerLink]="['/cursos', 'novo']">Adicionar Novo Curso</button>
+
+<div *ngIf="cursos.length === 0; else cursosList">
+  <p>Nenhum curso encontrado.</p>
+</div>
+
+<ng-template #cursosList>
+  <table class="cursos-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome do Curso</th>
+        <th>Carga Horária</th>
+        <th>Professor</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let curso of cursos">
+        <td>{{ curso.id }}</td>
+        <td>{{ curso.nome }}</td>
+        <td>{{ curso.cargaHoraria }}h</td>
+        <td>{{ curso.professor }}</td>
+        <td class="actions">
+          <a [routerLink]="['/cursos', curso.id]">Ver Detalhes</a> |
+          <a (click)="editCurso(curso.id)">Editar</a> |
+          <a (click)="deleteCurso(curso.id)" class="delete-link">Excluir</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>
