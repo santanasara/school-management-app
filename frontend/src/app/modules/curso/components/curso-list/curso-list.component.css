@@ -1,4 +1,18 @@
-/* src/app/modules/curso/components/curso-list/curso-list.component.css */
+.filtros {
+  margin: 20px 0;
+}
+
+.filtros input {
+  margin-right: 10px;
+  padding: 5px;
+  width: 150px;
+}
+
+.filtros button {
+  margin-right: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
 
 .cursos-table {
   width: 100%;

@@ -2,6 +2,23 @@
 
 <button class="add-button" [routerLink]="['/cursos', 'novo']">Adicionar Novo Curso</button>
 
+<!-- Filtros -->
+<div class="filtros">
+  <button (click)="carregarAtivos()">Mostrar Cursos Ativos</button>
+  <input
+    type="text"
+    placeholder="Buscar por nome"
+    [(ngModel)]="nomeFiltro"
+    (input)="onNomeFiltroChange(nomeFiltro)"
+  />
+  <input
+    type="number"
+    placeholder="Carga mínima"
+    (input)="onCargaFiltroChange($any($event.target).value)"
+  />
+  <button (click)="loadCursos()">Mostrar Todos</button>
+</div>
+
 <div *ngIf="cursos.length === 0; else cursosList">
   <p>Nenhum curso encontrado.</p>
 </div>
@@ -13,6 +30,7 @@
         <th>ID</th>
         <th>Nome do Curso</th>
         <th>Carga Horária</th>
+        <th>Status</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -21,6 +39,7 @@
         <td>{{ curso.id }}</td>
         <td>{{ curso.nome }}</td>
         <td>{{ curso.cargaHoraria }}h</td>
+        <td>{{ curso.status ? 'Ativo' : 'Inativo' }}</td>
         <td class="actions">
           <a [routerLink]="['/cursos', curso.id]">Ver Detalhes</a> |
           <a (click)="editCurso(curso.id)">Editar</a> |
