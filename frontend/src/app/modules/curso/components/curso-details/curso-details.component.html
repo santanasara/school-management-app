@@ -2,7 +2,9 @@
   <h3>Detalhes do Curso: {{ curso.nome }}</h3>
   <p><strong>ID:</strong> {{ curso.id }}</p>
   <p><strong>Nome:</strong> {{ curso.nome }}</p>
+  <p><strong>Descrição:</strong> {{ curso.descricao }}</p>
   <p><strong>Carga Horária:</strong> {{ curso.cargaHoraria }} horas</p>
+  <p><strong>Status:</strong>{{ curso.status ? 'Ativo' : 'Inativo' }}</p>
 
   <button [routerLink]="['/cursos']" class="back-button">Voltar para a Lista</button>
 </div>

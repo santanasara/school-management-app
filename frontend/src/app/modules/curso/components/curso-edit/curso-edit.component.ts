@@ -37,6 +37,7 @@ export class CursoEditComponent implements OnInit {
       nome: ['', Validators.required],
       descricao: ['', Validators.required],
       cargaHoraria: ['', [Validators.required, Validators.min(1)]],
+      status: [true, Validators.required]
     });
 
     this.route.paramMap.pipe(
