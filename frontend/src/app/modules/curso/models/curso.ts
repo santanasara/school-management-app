@@ -3,4 +3,5 @@ export interface Curso {
   nome: string;
   descricao: string;
   cargaHoraria: number;
+  status: boolean;
 }
