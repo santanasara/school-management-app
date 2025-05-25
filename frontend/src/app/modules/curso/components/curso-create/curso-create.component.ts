@@ -3,16 +3,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'; // Para formulários reativos
-import { Router } from '@angular/router'; // Para navegação após a criação
+import { Router, RouterLink} from '@angular/router'; // Para navegação após a criação
 import { CursoService } from '../../services/curso.service';
 import { Curso } from '../../curso'; 
+
 
 @Component({
   selector: 'app-curso-create',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule // Necessário para usar FormGroup, FormControl, Validators
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './curso-create.component.html',
   styleUrls: ['./curso-create.component.css']

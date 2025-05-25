@@ -3,7 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CursoService } from '../../services/curso.service';
 import { Curso } from '../../curso'; 
 import { switchMap } from 'rxjs/operators'; // Para encadear observables
@@ -14,7 +14,8 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './curso-edit.component.html',
   styleUrls: ['./curso-edit.component.css']
