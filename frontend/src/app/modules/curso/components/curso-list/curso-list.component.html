@@ -1,0 +1,94 @@
+<!-- Título e botão Adicionar -->
+<div class="flex justify-between items-center mb-6">
+  <button
+    mat-raised-button
+    color="primary"
+    [routerLink]="['/cursos', 'novo']"
+    class="flex items-center gap-2"
+  >
+    <mat-icon>add</mat-icon>
+    Novo Curso
+  </button>
+</div>
+
+<!-- Área de Filtros -->
+<div class="flex flex-wrap  gap-4 mb-6 items-baseline">
+
+  <mat-form-field class="min-w-[200px] max-w-[250px] flex-1">
+    <mat-label>Buscar por nome</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="nomeFiltro"
+        (input)="onNomeFiltroChange(nomeFiltro)"
+        placeholder="Buscar por nome"
+      />
+  </mat-form-field>
+
+  <mat-form-field class="min-w-[200px] max-w-[250px] flex-1">
+    <mat-label>Carga mínima</mat-label>
+    <input
+      matInput
+      type="number"
+      (input)="onCargaFiltroChange($any($event.target).value)"
+      placeholder="Carga mínima"
+    />
+  </mat-form-field>
+
+  <button class="bg-white" mat-stroked-button (click)="loadCursos()">
+    Mostrar Todos
+  </button>
+
+  <button class="bg-white" mat-stroked-button color="accent" (click)="carregarAtivos()">
+    Mostrar Cursos Ativos
+  </button>
+</div>
+
+<!-- Lista de Cursos -->
+<div *ngIf="cursos.length === 0; else cursosList" class="text-gray-600">
+  <p>Nenhum curso encontrado.</p>
+</div>
+
+<ng-template #cursosList>
+  <table mat-table [dataSource]="cursos" class="min-w-full divide-y divide-gray-200">
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let curso"> {{ curso.id }} </td>
+    </ng-container>
+
+    <!-- Nome Column -->
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef> Nome do Curso </th>
+      <td mat-cell *matCellDef="let curso"> {{ curso.nome }} </td>
+    </ng-container>
+
+    <!-- Carga Horária Column -->
+    <ng-container matColumnDef="cargaHoraria">
+      <th mat-header-cell *matHeaderCellDef> Carga Horária </th>
+      <td mat-cell *matCellDef="let curso"> {{ curso.cargaHoraria }}h </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let curso">
+        {{ curso.status ? 'Ativo' : 'Inativo' }}
+      </td>
+    </ng-container>
+
+    <!-- Ações Column -->
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef> Ações </th>
+      <td mat-cell *matCellDef="let curso" class="space-x-2">
+        <button mat-button color="primary" [routerLink]="['/cursos', curso.id]">Ver Detalhes</button>
+        <button mat-button color="accent" (click)="editCurso(curso.id)">Editar</button>
+        <button mat-button color="warn" (click)="deleteCurso(curso.id)">Excluir</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['id', 'nome', 'cargaHoraria', 'status', 'acoes']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id', 'nome', 'cargaHoraria', 'status', 'acoes'];"></tr>
+  </table>
+</ng-template>

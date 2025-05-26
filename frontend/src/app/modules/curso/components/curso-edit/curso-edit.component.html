@@ -1,0 +1,50 @@
+<mat-card class="max-w-md mx-auto mt-8 p-6 shadow-lg">
+  <h3 class="text-2xl font-semibold mb-6">Editar Curso</h3>
+
+  <form [formGroup]="cursoForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Nome do Curso</mat-label>
+      <input matInput type="text" formControlName="nome" />
+      <mat-error *ngIf="cursoForm.get('nome')?.invalid && cursoForm.get('nome')?.touched">
+        Nome do curso é obrigatório.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Descrição do Curso</mat-label>
+      <input matInput type="text" formControlName="descricao" />
+      <mat-error *ngIf="cursoForm.get('descricao')?.invalid && cursoForm.get('descricao')?.touched">
+        Descrição do curso é obrigatório.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Carga Horária (horas)</mat-label>
+      <input matInput type="number" formControlName="cargaHoraria" />
+      <mat-error *ngIf="cursoForm.get('cargaHoraria')?.invalid && cursoForm.get('cargaHoraria')?.touched">
+        Carga horária é obrigatória e deve ser um número positivo.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option [value]="true">Ativo</mat-option>
+        <mat-option [value]="false">Inativo</mat-option>
+      </mat-select>
+      <mat-error *ngIf="cursoForm.get('status')?.invalid && cursoForm.get('status')?.touched">
+        Status é obrigatório.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="flex justify-between">
+      <button mat-raised-button color="primary" type="submit" [disabled]="cursoForm.invalid" class="flex-grow mr-2">
+        Salvar Alterações
+      </button>
+      <button mat-stroked-button color="warn" type="button" [routerLink]="['/cursos']" class="flex-grow ml-2">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</mat-card>
