@@ -1,13 +1,17 @@
-// src/app/modules/curso/components/curso-edit/curso-edit.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CursoService } from '../../services/curso.service';
 import { Curso } from '../../models/curso'; 
-import { switchMap } from 'rxjs/operators'; // Para encadear observables
+import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCard } from '@angular/material/card';
 
 @Component({
   selector: 'app-curso-edit',
@@ -15,10 +19,14 @@ import { Observable } from 'rxjs';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatCard
   ],
   templateUrl: './curso-edit.component.html',
-  styleUrls: ['./curso-edit.component.css']
 })
 export class CursoEditComponent implements OnInit {
   cursoForm!: FormGroup; 
@@ -47,14 +55,14 @@ export class CursoEditComponent implements OnInit {
         if (this.cursoId) {
           return this.cursoService.getCursoById(this.cursoId);
         }
-        return new Observable<Curso | undefined>(); // Retorna um observable vazio se não houver ID
+        return new Observable<Curso | undefined>();
       })
     ).subscribe(curso => {
       if (curso) {
-        this.cursoForm.patchValue(curso); // Preenche o formulário com os dados do curso
+        this.cursoForm.patchValue(curso);
       } else {
         console.error('Curso não encontrado para edição.');
-        this.router.navigate(['/cursos']); // Redireciona se o curso não for encontrado
+        this.router.navigate(['/cursos']);
       }
     });
   }
@@ -64,7 +72,7 @@ export class CursoEditComponent implements OnInit {
       const cursoAtualizado: Curso = { ...this.cursoForm.value, id: this.cursoId };
       this.cursoService.updateCurso(this.cursoId, cursoAtualizado).subscribe(() => {
         console.log('Curso atualizado com sucesso!');
-        this.router.navigate(['/cursos']); // Redireciona para a lista de cursos
+        this.router.navigate(['/cursos']);
       });
     } else {
       console.log('Formulário inválido ou ID do curso ausente.');

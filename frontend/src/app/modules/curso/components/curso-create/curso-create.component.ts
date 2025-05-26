@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CursoService } from '../../services/curso.service';
-import { Curso } from '../../models/curso';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCard } from '@angular/material/card';
 
 @Component({
   selector: 'app-curso-create',
@@ -20,7 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCard
   ],
   templateUrl: './curso-create.component.html',
 })
@@ -44,13 +45,12 @@ export class CursoCreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.cursoForm.valid) {
-      const novoCurso: Curso = this.cursoForm.value;
-      this.cursoService.createCurso(novoCurso).subscribe(() => {
+      this.cursoService.createCurso(this.cursoForm.value).subscribe(() => {
         console.log('Curso criado com sucesso!');
         this.router.navigate(['/cursos']);
       });
     } else {
-      console.log('Formulário inválido. Preencha todos os campos obrigatórios.');
+      console.log('Formulário inválido.');
     }
   }
 }
