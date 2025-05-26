@@ -1,38 +1,22 @@
-// src/app/modules/curso/components/curso-shell/curso-shell.component.ts
-
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router'; // Importe RouterOutlet para as rotas filhas
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-curso-shell',
-  standalone: true, // É um componente standalone
+  standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet // Permite que os componentes filhos sejam renderizados aqui
+    RouterOutlet
   ],
   template: `
-    <div class="curso-container">
-      <h2>Gerenciamento de Cursos</h2>
-      <router-outlet></router-outlet> </div>
-  `,
-  styles: [`
-    .curso-container {
-      padding: 20px;
-      margin: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-    }
-    h2 {
-      color: #3f51b5;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #3f51b5;
-      padding-bottom: 10px;
-    }
-  `]
+    <div class="p-5 m-5 border border-gray-300 rounded-lg bg-gray-50">
+      <h2 class="text-indigo-600 mb-5 border-b-2 border-indigo-600 pb-2 text-xl font-semibold">
+        Gerenciamento de Cursos
+      </h2>
+      <router-outlet></router-outlet>
+    </div>
+  `
 })
 export class CursoShellComponent {
-  // Este componente atua como um contêiner para as rotas filhas de curso.
-  // Sua lógica principal é apenas conter o <router-outlet>.
 }

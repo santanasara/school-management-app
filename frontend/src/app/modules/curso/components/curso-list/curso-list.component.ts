@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
-import { CursoService } from '../../services/curso.service';
-import { Curso } from '../../models/curso'; 
 import { FormsModule } from '@angular/forms';
+
+// Angular Material
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+
+import { CursoService } from '../../services/curso.service';
+import { Curso } from '../../models/curso';
 
 @Component({
   selector: 'app-curso-list',
@@ -11,17 +19,22 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RouterLink,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatCardModule,
+    MatTableModule,
   ],
   templateUrl: './curso-list.component.html',
-  styleUrls: ['./curso-list.component.css']
 })
 export class CursoListComponent implements OnInit {
   cursos: Curso[] = [];
 
-  // Campos para filtro
   nomeFiltro: string = '';
   cargaMinFiltro: number | null = null;
+
+  displayedColumns: string[] = ['id', 'nome', 'cargaHoraria', 'status', 'acoes'];
 
   constructor(private cursoService: CursoService, private router: Router) { }
 
@@ -61,7 +74,6 @@ export class CursoListComponent implements OnInit {
     });
   }
 
-  // Chamadas para lidar com filtros nos inputs
   onNomeFiltroChange(value: string): void {
     this.nomeFiltro = value;
     this.buscarPorNome(value);
