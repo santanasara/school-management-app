@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './shared/components/home.component'; // Seu componente Home existente
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent }, // Sua rota inicial para a Home Component
 
   // Rotas para a funcionalidade de Cursos
   {
