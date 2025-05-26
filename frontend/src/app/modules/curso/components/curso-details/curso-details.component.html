@@ -1,14 +1,19 @@
-<div *ngIf="curso; else loading">
-  <h3>Detalhes do Curso: {{ curso.nome }}</h3>
-  <p><strong>ID:</strong> {{ curso.id }}</p>
-  <p><strong>Nome:</strong> {{ curso.nome }}</p>
-  <p><strong>Descrição:</strong> {{ curso.descricao }}</p>
-  <p><strong>Carga Horária:</strong> {{ curso.cargaHoraria }} horas</p>
-  <p><strong>Status:</strong>{{ curso.status ? 'Ativo' : 'Inativo' }}</p>
+<ng-container *ngIf="curso; else loading">
+  <mat-card class="max-w-md mx-auto mt-8 p-6 shadow-lg">
+    <h3 class="text-2xl font-semibold mb-4">Detalhes do Curso: {{ curso.nome }}</h3>
 
-  <button [routerLink]="['/cursos']" class="back-button">Voltar para a Lista</button>
-</div>
+    <p class="mb-2"><strong>ID:</strong> {{ curso.id }}</p>
+    <p class="mb-2"><strong>Nome:</strong> {{ curso.nome }}</p>
+    <p class="mb-2"><strong>Descrição:</strong> {{ curso.descricao }}</p>
+    <p class="mb-2"><strong>Carga Horária:</strong> {{ curso.cargaHoraria }} horas</p>
+    <p class="mb-4"><strong>Status:</strong> {{ curso.status ? 'Ativo' : 'Inativo' }}</p>
+
+    <button mat-raised-button color="primary" [routerLink]="['/cursos']" class="w-full">
+      Voltar para a Lista
+    </button>
+  </mat-card>
+</ng-container>
 
 <ng-template #loading>
-  <p>Carregando detalhes do curso...</p>
+  <p class="text-center mt-8 text-gray-600">Carregando detalhes do curso...</p>
 </ng-template>
