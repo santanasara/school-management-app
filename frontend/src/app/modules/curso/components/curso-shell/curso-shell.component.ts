@@ -10,10 +10,20 @@ import { RouterOutlet } from '@angular/router';
     RouterOutlet
   ],
   template: `
-    <div class="p-5 m-5 border border-gray-300 rounded-lg bg-gray-50">
-      <h2 class="text-indigo-600 mb-5 border-b-2 border-indigo-600 pb-2 text-xl font-semibold">
-        Gerenciamento de Cursos
-      </h2>
+    <div>
+      <nav class="text-sm text-gray-500 mb-6" aria-label="Breadcrumb">
+        <ol class="list-reset flex items-center space-x-1">
+          <li>
+            <a href="/" class="hover:text-indigo-600 transition">Início</a>
+            <span class="mx-1">/</span>
+          </li>
+          <li>
+            <a href="/cursos" class="hover:text-indigo-600 transition">Cursos</a>
+            <span class="mx-1">/</span>
+          </li>
+          <li class="text-indigo-600 font-medium">Gerenciar</li>
+        </ol>
+      </nav>
       <router-outlet></router-outlet>
     </div>
   `
