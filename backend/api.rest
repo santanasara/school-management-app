@@ -1,3 +1,4 @@
+// ====================================== TURMA ====================================== //
 ### CRIAR TURMA COM NOME E SEM DISCIPLINA ASSOCIADA
 POST http://localhost:3000/turma 
 content-type: application/json
@@ -55,3 +56,50 @@ DELETE http://localhost:3000/turma/3
 ### REMOVER TURMA QUE NÃO EXISTE
 DELETE http://localhost:3000/turma/485555
 
+### LISTAR TODAS AS ATIVIDADES DE UMA TURMA
+http://localhost:3000/turma/1/atividade
+
+// ====================================== ATIVIDADE ====================================== //
+
+### CRIAR ATIVIDADE COM NOME E SEM DISCIPLINA ASSOCIADA
+POST http://localhost:3000/atividade 
+content-type: application/json
+
+{
+  "titulo": "Título da atividade",
+  "descricao": "Descrição da atividade",
+  "dataInicial": "2025-05-12",
+  "dataFinal": "2025-06-12",
+  "turmaId": 1
+}
+
+### LISTAR TODAS AS ATIVIDADES
+http://localhost:3000/atividade
+
+### RECUPERAR UMA ATIVIDADE QUE EXISTE
+http://localhost:3000/atividade/1
+
+### RECUPERAR UMA ATIVIDADE QUE NÃO EXISTE
+http://localhost:3000/atividade/446565
+
+### ALTERAR ATIVIDADE QUE EXISTE
+PATCH http://localhost:3000/atividade/1 
+content-type: application/json
+
+{
+    "titulo": "MUDEI DE TITULO"
+}
+
+### ALTERAR ATIVIDADE QUE NÃO EXISTE
+PATCH http://localhost:3000/atividade/546848 
+content-type: application/json
+
+{
+    "titulo": "MUDEI DE TITULO"
+}
+
+### REMOVER ATIVIDADE QUE EXISTE
+DELETE http://localhost:3000/atividade/3
+
+### REMOVER ATIVIDADE QUE NÃO EXISTE
+DELETE http://localhost:3000/atividade/485555

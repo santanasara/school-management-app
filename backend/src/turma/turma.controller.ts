@@ -12,6 +12,11 @@ export class TurmaController {
     return this.turmaService.create(createTurmaDto);
   }
 
+  @Get('/:turmaId/atividade')
+  listarAtividades(@Param('turmaId') id: string) {
+    return this.turmaService.listarAtividades(+id);
+  }
+
   @Get()
   findAll() {
     return this.turmaService.findAll();
