@@ -1,0 +1,17 @@
+<mat-card class="max-w-md mx-auto mt-8 p-6 shadow-lg">
+  <h3 class="text-2xl font-semibold mb-6">Cadastrar Novo Matrícula</h3>
+
+  <form [formGroup]="matriculaForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+    
+
+    <div class="flex justify-between">
+      <button mat-raised-button color="primary" type="submit" [disabled]="matriculaForm.invalid" class="flex-grow mr-2">
+        Cadastrar
+      </button>
+      <button mat-stroked-button color="warn" type="button" [routerLink]="['/matriculas']" class="flex-grow ml-2">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</mat-card>
