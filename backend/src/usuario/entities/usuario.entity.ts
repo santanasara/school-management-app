@@ -1,7 +1,9 @@
+import { Matricula } from 'src/matricula/entities/matricula.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('usuario')
@@ -23,4 +25,7 @@ export class Usuario {
 
   @Column() 
   perfil: string;
+
+  @OneToMany(() => Matricula, (matricula) => matricula.usuario)
+  matriculas: Matricula[];
 }

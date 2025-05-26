@@ -3,9 +3,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Disciplina } from 'src/disciplina/entities/disciplina.entity';
+import { Matricula } from 'src/matricula/entities/matricula.entity';
 
 @Entity('turma')
 export class Turma {
@@ -32,4 +34,7 @@ export class Turma {
 
   @ManyToOne(() => Disciplina, { nullable: true, eager: true })
   disciplina?: Disciplina;
+
+  @OneToMany(() => Matricula, (matricula) => matricula.usuario)
+  matriculas: Matricula[];
 }
