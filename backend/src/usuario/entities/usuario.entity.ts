@@ -1,6 +1,5 @@
 import { Matricula } from 'src/matricula/entities/matricula.entity';
 import { Pessoa } from 'src/pessoa/entities/pessoa.entity';
-import { OneToOne } from 'typeorm';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,7 +8,6 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm';
-import { JoinColumn } from 'typeorm';
 
 type Perfil = 'prof' | 'aluno' | 'admin';
 
