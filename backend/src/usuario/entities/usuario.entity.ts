@@ -1,5 +1,6 @@
 import { Matricula } from 'src/matricula/entities/matricula.entity';
 import { Pessoa } from 'src/pessoa/entities/pessoa.entity';
+import { OneToOne } from 'typeorm';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,27 +9,33 @@ import {
   JoinColumn,
   OneToOne,
 } from 'typeorm';
+import { JoinColumn } from 'typeorm';
+
+type Perfil = 'prof' | 'aluno' | 'admin';
 
 @Entity('usuario')
 export class Usuario {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Pessoa) 
-  @JoinColumn() 
+  @OneToOne(() => Pessoa, {eager:true})
+  @JoinColumn({ name: 'pessoa_id' })
   pessoa: Pessoa;
 
-  @Column() 
+  @Column()  
+  pessoa_id: number;
+
+  @Column({select:false}) 
   email: string;
 
-  @Column() 
+  @Column({select:false}) 
   senha: string;
 
-  @Column() 
+  @Column({select:false})
   login: string;
 
   @Column() 
-  perfil: string;
+  perfil: Perfil;
 
   @OneToMany(() => Matricula, (matricula) => matricula.usuario)
   matriculas: Matricula[];
