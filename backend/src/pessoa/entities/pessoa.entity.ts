@@ -1,17 +1,13 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('pessoa')
+@Entity('pessoa') 
 export class Pessoa {
-  @PrimaryGeneratedColumn()
-  id: number;
+    @PrimaryGeneratedColumn()
+    pessoa_id: number; 
 
-  @Column({ nullable: false})
-  nome: string;
-
-  @Column({ nullable: false, select: false})
-  cpf: string;
+    @Column({ type: 'varchar', length: 255 })
+    nome: string;
+    
+    @Column({ type: 'varchar', length: 11, unique: true })
+    cpf: string;
 }
