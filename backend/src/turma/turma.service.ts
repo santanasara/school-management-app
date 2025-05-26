@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { Turma } from './entities/turma.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Disciplina } from 'src/disciplina/entities/disciplina.entity';
+import { AtividadeService } from 'src/atividade/atividade.service';
 
 @Injectable()
 export class TurmaService {
@@ -19,6 +20,8 @@ export class TurmaService {
 
     @InjectRepository(Disciplina)
     private readonly disciplinaRepository: Repository<Disciplina>,
+
+    private readonly atividadeService:AtividadeService,
   ) {}
   
   async create(dto: CreateTurmaDto) {
@@ -99,6 +102,10 @@ export class TurmaService {
   }
 
   async remove(id: number) {
-    await this.turmaRepository.delete(id);
+    return await this.turmaRepository.delete(id);
+  }
+
+  async listarAtividades(id:number){
+    return await this.atividadeService.listarAtividadesPorTurma(id);
   }
 }
