@@ -1,26 +1,49 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Disciplina } from './entities/disciplina.entity';
 import { CreateDisciplinaDto } from './dto/create-disciplina.dto';
 import { UpdateDisciplinaDto } from './dto/update-disciplina.dto';
 
 @Injectable()
 export class DisciplinaService {
-  create(createDisciplinaDto: CreateDisciplinaDto) {
-    return 'This action adds a new disciplina';
+  constructor(
+    @InjectRepository(Disciplina)
+    private readonly disciplinaRepository: Repository<Disciplina>,
+  ) {}
+
+  async create(createDisciplinaDto: CreateDisciplinaDto): Promise<Disciplina> {
+    const disciplina = this.disciplinaRepository.create(createDisciplinaDto);
+    return await this.disciplinaRepository.save(disciplina);
   }
 
-  findAll() {
-    return `This action returns all disciplina`;
+  async findAll(): Promise<Disciplina[]> {
+    return await this.disciplinaRepository.find({
+      relations: ['turma'], // carrega as turmas associadas
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} disciplina`;
+  async findOne(id: number): Promise<Disciplina> {
+    const disciplina = await this.disciplinaRepository.findOne({
+      where: { id },
+      relations: ['turma'], // opcional
+    });
+
+    if (!disciplina) {
+      throw new NotFoundException(`Disciplina com id ${id} não encontrada`);
+    }
+
+    return disciplina;
   }
 
-  update(id: number, updateDisciplinaDto: UpdateDisciplinaDto) {
-    return `This action updates a #${id} disciplina`;
+  async update(id: number, updateDisciplinaDto: UpdateDisciplinaDto): Promise<Disciplina> {
+    const disciplina = await this.findOne(id);
+    const updated = Object.assign(disciplina, updateDisciplinaDto);
+    return await this.disciplinaRepository.save(updated);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} disciplina`;
+  async remove(id: number): Promise<void> {
+    const disciplina = await this.findOne(id);
+    await this.disciplinaRepository.remove(disciplina);
   }
 }

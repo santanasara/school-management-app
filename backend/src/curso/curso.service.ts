@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, ILike } from 'typeorm';
 import { Curso } from './entities/curso.entity';
 import { CreateCursoDto } from './dto/create-curso.dto';
 import { UpdateCursoDto } from './dto/update-curso.dto';
@@ -27,6 +27,23 @@ export class CursoService {
     return curso;
   }
 
+  async findAtivos(): Promise<Curso[]> {
+    return this.cursoRepository.find({ where: { status: true } });
+  }
+
+  async findByNome(nome: string): Promise<Curso[]> {
+    return this.cursoRepository.find({
+      where: { nome: ILike(`%${nome}%`) },
+    });
+  }
+
+  async findByCargaHorariaMinima(min: number): Promise<Curso[]> {
+    return this.cursoRepository
+      .createQueryBuilder('curso')
+      .where('curso.cargaHoraria > :min', { min })
+      .getMany();
+  }
+
   async update(id: number, updateCursoDto: UpdateCursoDto): Promise<Curso> {
     const curso = await this.cursoRepository.preload({
       id,
@@ -40,4 +57,6 @@ export class CursoService {
     const curso = await this.findOne(id);
     await this.cursoRepository.remove(curso);
   }
+
+
 }

@@ -3,7 +3,7 @@ import { CursoService } from './curso.service';
 import { CreateCursoDto } from './dto/create-curso.dto';
 import { UpdateCursoDto } from './dto/update-curso.dto';
 
-@Controller('curso')
+@Controller('cursos')
 export class CursoController {
   constructor(private readonly cursoService: CursoService) {}
 
@@ -15,6 +15,11 @@ export class CursoController {
   @Get()
   findAll() {
     return this.cursoService.findAll();
+  }
+
+  @Get('ativos')
+  findAtivos() {
+    return this.cursoService.findAtivos();
   }
 
   @Get(':id')
@@ -30,5 +35,15 @@ export class CursoController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.cursoService.remove(+id);
+  }
+
+  @Get('buscar-por-nome/:nome')
+  findByNome(@Param('nome') nome: string) {
+    return this.cursoService.findByNome(nome);
+  }
+
+  @Get('carga-maior-que/:min')
+  findByCargaMinima(@Param('min') min: number) {
+    return this.cursoService.findByCargaHorariaMinima(Number(min));
   }
 }
