@@ -6,34 +6,36 @@ export const routes: Routes = [
   {
     path: 'matriculas',
     loadComponent: () =>
-      import('./modules/matricula/components/curso-shell/matricula-shell.component')
+
+      import('./modules/matricula/components/matricula-shell/matricula-shell.component')
         .then(m => m.MatriculaShellComponent),
     children: [
       {
         path: '',
         loadComponent: () =>
-          import('./modules/curso/components/curso-list/curso-list.component')
-            .then(m => m.CursoListComponent)
+          import('./modules/matricula/components/matricula-list/matricula-list.component')
+            .then(m => m.MatriculaListComponent)
       },
       {
-        path: 'novo', // Rota para /cursos/novo
+        path: 'novo',
         loadComponent: () =>
-          import('./modules/curso/components/curso-create/curso-create.component')
-            .then(m => m.CursoCreateComponent)
+          import('./modules/matricula/components/matricula-create/matricula-create.component')
+        .then(m => m.MatriculaCreateComponent)
       },
+        /*
       {
-        path: ':id', // Rota para /cursos/:id (detalhes de um curso específico)
+        path: ':id', 
         loadComponent: () =>
-          import('./modules/curso/components/curso-details/curso-details.component')
+          import('./modules/curso/components/matricula-details/matricula-details.component')
             .then(m => m.CursoDetailsComponent)
       },
       {
-        path: 'editar/:id', // Rota para /cursos/editar/:id
+        path: 'editar/:id', 
         loadComponent: () =>
-          import('./modules/curso/components/curso-edit/curso-edit.component')
+          import('./modules/curso/components/matricula-edit/matricula-edit.component')
             .then(m => m.CursoEditComponent)
       },
-      // Redireciona para a lista se a URL não for correspondida em 'cursos'
+      */
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   },

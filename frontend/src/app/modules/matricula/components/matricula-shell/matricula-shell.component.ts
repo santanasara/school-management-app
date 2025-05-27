@@ -1,0 +1,32 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-matricula-shell',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet
+  ],
+  template: `
+    <div>
+      <nav class="text-sm text-gray-500 mb-6" aria-label="Breadcrumb">
+        <ol class="list-reset flex items-center space-x-1">
+          <li>
+            <a href="/" class="hover:text-indigo-600 transition">Início</a>
+            <span class="mx-1">/</span>
+          </li>
+          <li>
+            <a href="/cursos" class="hover:text-indigo-600 transition">Matrículas</a>
+            <span class="mx-1">/</span>
+          </li>
+          <li class="text-indigo-600 font-medium">Gerenciar</li>
+        </ol>
+      </nav>
+      <router-outlet></router-outlet>
+    </div>
+  `
+})
+export class MatriculaShellComponent {
+}
