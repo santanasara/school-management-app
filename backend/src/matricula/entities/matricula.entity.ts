@@ -9,6 +9,7 @@ import {
     OneToMany,
     JoinColumn,
 } from 'typeorm';
+import { SituacaoMatricula } from './SituacaoMatricula';
 
 @Entity('matricula')
 export class Matricula {
@@ -17,7 +18,7 @@ export class Matricula {
     id: number;
 
     @Column({ type: 'date' })
-    data_matricula: Date;
+    dataDatricula: Date;
 
     @ManyToOne(() => Usuario, (usuario) => usuario.matriculas, { eager: true })
     @JoinColumn({ name: 'usuario_id' })
@@ -30,5 +31,7 @@ export class Matricula {
     @OneToMany(() => Nota, (nota) => nota.matricula)
     notas: Nota[];
 
+    @Column({ name: 'situacao_matricula', type: 'simple-enum', enum: SituacaoMatricula, default: SituacaoMatricula.ATIVA })
+    situacaoMatricula: SituacaoMatricula;
 
 }
