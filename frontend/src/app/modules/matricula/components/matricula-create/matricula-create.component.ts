@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { MatriculaService } from '../../services/matricula.service';
 import { SituacaoMatricula } from '../../models/SituacaoMatricula';
+import { Turma } from '../../../turma/models/Turma';
+import { TurmaService } from '../../../turma/services/turma.service';
 
 @Component({
   selector: 'app-matricula-create',
@@ -27,21 +29,26 @@ import { SituacaoMatricula } from '../../models/SituacaoMatricula';
 })
 export class MatriculaCreateComponent implements OnInit {
   matriculaForm!: FormGroup;
+  turmas: Turma[] = [];
+
 
   constructor(
     private fb: FormBuilder,
     private matriculaService: MatriculaService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private turmaService: TurmaService
+
+  ) { }
 
   ngOnInit(): void {
     this.matriculaForm = this.fb.group({
       dataDatricula: [new Date(), Validators.required],
       //usuario: Usuario;
-      //turma: Turma;
+      turma: [null, Validators.required],
       //notas: Nota[];
       situacaoMatricula: [SituacaoMatricula.ATIVA, Validators.required],
     });
+    this.loadTurmas();
   }
 
   onSubmit(): void {
@@ -53,5 +60,11 @@ export class MatriculaCreateComponent implements OnInit {
     } else {
       console.log('Formulário inválido.');
     }
+  }
+
+  loadTurmas(): void {
+    this.turmaService.getTurmas().subscribe(data => {
+      this.turmas = data;
+    });
   }
 }

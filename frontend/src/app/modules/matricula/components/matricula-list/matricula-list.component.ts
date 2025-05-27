@@ -12,6 +12,8 @@ import { MatTableModule } from '@angular/material/table';
 
 import { MatriculaService } from '../../services/matricula.service';
 import { Matricula } from '../../models/Matricula';
+import { Turma } from '../../../turma/models/Turma';
+import { TurmaService } from '../../../turma/services/turma.service';
 
 @Component({
   selector: 'app-matricula-list',
@@ -29,14 +31,18 @@ import { Matricula } from '../../models/Matricula';
   templateUrl: './matricula-list.component.html',
 })
 export class MatriculaListComponent implements OnInit {
+  
   matriculas: Matricula[] = [];
-
+  
   nomeFiltro: string = '';
   cargaMinFiltro: number | null = null;
 
-  displayedColumns: string[] = ['id', 'nome', 'cargaHoraria', 'status', 'acoes'];
+  displayedColumns: string[] = ['id', 'disciplina', 'horario', 'acoes'];
 
-  constructor(private matriculaService: MatriculaService, private router: Router) { }
+  constructor(
+    private matriculaService: MatriculaService, 
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.loadMatriculas();
@@ -47,6 +53,8 @@ export class MatriculaListComponent implements OnInit {
       this.matriculas = data;
     });
   }
+
+
 
   carregarAtivos(): void {
     /*

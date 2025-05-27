@@ -36,49 +36,44 @@
 
 <!-- Lista de matriculas -->
 <div *ngIf="matriculas.length === 0; else matriculasList" class="text-gray-600">
-  <p>Nenhum curso encontrado.</p>
+  <p>Nenhum matricula encontrado.</p>
 </div>
 
 <ng-template #matriculasList>
   <table mat-table [dataSource]="matriculas" class="min-w-full divide-y divide-gray-200">
 
-    <!-- ID Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let curso"> {{ curso.id }} </td>
+      <td mat-cell *matCellDef="let matricula"> {{ matricula.id }} </td>
     </ng-container>
 
-    <!-- Nome Column -->
-    <ng-container matColumnDef="nome">
-      <th mat-header-cell *matHeaderCellDef> Nome do Curso </th>
-      <td mat-cell *matCellDef="let curso"> {{ curso.nome }} </td>
+    <ng-container matColumnDef="disciplina">
+      <th mat-header-cell *matHeaderCellDef> Disciplina </th>
+      <td mat-cell *matCellDef="let matricula"> {{ matricula.turma.nome }} </td>
     </ng-container>
 
-    <!-- Carga Horária Column -->
-    <ng-container matColumnDef="cargaHoraria">
-      <th mat-header-cell *matHeaderCellDef> Carga Horária </th>
-      <td mat-cell *matCellDef="let curso"> {{ curso.cargaHoraria }}h </td>
+    <ng-container matColumnDef="horario">
+      <th mat-header-cell *matHeaderCellDef>Horária</th>
+      <td mat-cell *matCellDef="let matricula"> {{ matricula.turma.horario }} </td>
     </ng-container>
 
-    <!-- Status Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let curso">
-        {{ curso.status ? 'Ativo' : 'Inativo' }}
+      <td mat-cell *matCellDef="let matricula">
+        {{ matricula.status ? 'Ativo' : 'Inativo' }}
       </td>
     </ng-container>
 
-    <!-- Ações Column -->
     <ng-container matColumnDef="acoes">
       <th mat-header-cell *matHeaderCellDef> Ações </th>
-      <td mat-cell *matCellDef="let curso" class="space-x-2">
-        <button mat-button color="primary" [routerLink]="['/matriculas', curso.id]">Ver Detalhes</button>
-        <button mat-button color="accent" (click)="editCurso(curso.id)">Editar</button>
-        <button mat-button color="warn" (click)="deleteCurso(curso.id)">Excluir</button>
+      <td mat-cell *matCellDef="let matricula" class="space-x-2">
+        <button mat-button color="primary" [routerLink]="['/matriculas', matricula.id]">Ver Detalhes</button>
+        <button mat-button color="accent" (click)="editCurso(matricula.id)">Editar</button>
+        <button mat-button color="warn" (click)="deleteCurso(matricula.id)">Excluir</button>
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['id', 'nome', 'cargaHoraria', 'status', 'acoes']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['id', 'nome', 'cargaHoraria', 'status', 'acoes'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="['id', 'disciplina', 'horario', 'acoes']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id', 'disciplina', 'horario', 'acoes'];"></tr>
   </table>
 </ng-template>
