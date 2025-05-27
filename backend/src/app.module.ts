@@ -9,6 +9,8 @@ import { AtividadeModule } from './atividade/atividade.module';
 import { DatabaseModule } from './config/database.module';
 import { DisciplinaModule } from './disciplina/disciplina.module';
 import { CursoModule } from './curso/curso.module';
+import { MatriculaModule } from './matricula/matricula.module';
+import { NotaModule } from './nota/nota.module';
 
 function getEnvFilePath(): string {
   switch (process.env.NODE_ENV) {
@@ -36,6 +38,8 @@ function getEnvFilePath(): string {
     TurmaModule,
     AtividadeModule,
     DisciplinaModule,
+    MatriculaModule,
+    NotaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

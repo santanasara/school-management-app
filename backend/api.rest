@@ -1,0 +1,105 @@
+// ====================================== TURMA ====================================== //
+### CRIAR TURMA COM NOME E SEM DISCIPLINA ASSOCIADA
+POST http://localhost:3000/turma 
+content-type: application/json
+
+{
+    "nome": "Nome de Turma Simples",
+    "local": "EAD",
+    "horario": "24T12",
+    "dataInicial": "2025-05-12",
+    "dataFinal": "2025-06-12",
+    "instrutorId": 1
+}
+
+### CRIAR URMA SEM NOME E COM DISCIPLINA ASSOCIADA
+POST http://localhost:3000/turma 
+content-type: application/json
+
+{
+    "local": "EAD",
+    "horario": "24T12",
+    "dataInicial": "2025-05-12",
+    "dataFinal": "2025-06-12",
+    "instrutorId": 1,
+    "disciplinaId": 1
+}
+
+### LISTAR TODAS AS TURMAS
+http://localhost:3000/turma
+
+### RECUPERAR UMA TURMA QUE EXISTE
+http://localhost:3000/turma/1
+
+### RECUPERAR UMA TURMA QUE NÃO EXISTE
+http://localhost:3000/turma/446565
+
+### ALTERAR TURMA QUE EXISTE
+PATCH http://localhost:3000/turma/1 
+content-type: application/json
+
+{
+    "nome": "MUDEI DE NOME"
+}
+
+### ALTERAR TURMA QUE NÃO EXISTE
+PATCH http://localhost:3000/turma/546848 
+content-type: application/json
+
+{
+    "nome": "MUDEI DE NOME"
+}
+
+### REMOVER TURMA QUE EXISTE
+DELETE http://localhost:3000/turma/3
+
+### REMOVER TURMA QUE NÃO EXISTE
+DELETE http://localhost:3000/turma/485555
+
+### LISTAR TODAS AS ATIVIDADES DE UMA TURMA
+http://localhost:3000/turma/1/atividade
+
+// ====================================== ATIVIDADE ====================================== //
+
+### CRIAR ATIVIDADE COM NOME E SEM DISCIPLINA ASSOCIADA
+POST http://localhost:3000/atividade 
+content-type: application/json
+
+{
+  "titulo": "Título da atividade",
+  "descricao": "Descrição da atividade",
+  "dataInicial": "2025-05-12",
+  "dataFinal": "2025-06-12",
+  "turmaId": 1
+}
+
+### LISTAR TODAS AS ATIVIDADES
+http://localhost:3000/atividade
+
+### RECUPERAR UMA ATIVIDADE QUE EXISTE
+http://localhost:3000/atividade/1
+
+### RECUPERAR UMA ATIVIDADE QUE NÃO EXISTE
+http://localhost:3000/atividade/446565
+
+### ALTERAR ATIVIDADE QUE EXISTE
+PATCH http://localhost:3000/atividade/1 
+content-type: application/json
+
+{
+    "titulo": "MUDEI DE TITULO"
+}
+
+### ALTERAR ATIVIDADE QUE NÃO EXISTE
+PATCH http://localhost:3000/atividade/546848 
+content-type: application/json
+
+{
+    "titulo": "MUDEI DE TITULO"
+}
+
+### REMOVER ATIVIDADE QUE EXISTE
+DELETE http://localhost:3000/atividade/3
+
+### REMOVER ATIVIDADE QUE NÃO EXISTE
+DELETE http://localhost:3000/atividade/485555

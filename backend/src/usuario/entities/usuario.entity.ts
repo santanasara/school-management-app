@@ -1,26 +1,40 @@
+import { Matricula } from 'src/matricula/entities/matricula.entity';
+import { Pessoa } from 'src/pessoa/entities/pessoa.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  OneToMany,
+  JoinColumn,
+  OneToOne,
 } from 'typeorm';
+
+type Perfil = 'prof' | 'aluno' | 'admin';
 
 @Entity('usuario')
 export class Usuario {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @OneToOne(() => Pessoa, {eager:true})
+  @JoinColumn({ name: 'pessoa_id' })
+  pessoa: Pessoa;
+
   @Column()  
   pessoa_id: number;
 
-  @Column() 
+  @Column({select:false}) 
   email: string;
 
-  @Column() 
+  @Column({select:false}) 
   senha: string;
 
-  @Column() 
+  @Column({select:false})
   login: string;
 
   @Column() 
-  perfil: string;
+  perfil: Perfil;
+
+  @OneToMany(() => Matricula, (matricula) => matricula.usuario)
+  matriculas: Matricula[];
 }
