@@ -25,7 +25,7 @@ export class DisciplinaService {
   }
 
   update(id: number, data: Partial<Disciplina>): Observable<Disciplina> {
-    return this.http.put<Disciplina>(`${this.apiUrl}/${id}`, data);
+    return this.http.patch<Disciplina>(`${this.apiUrl}/${id}`, data);
   }
 
   delete(id: number): Observable<void> {
@@ -41,6 +41,8 @@ export class DisciplinaService {
   }
 
   getByNome(nome: string): Observable<Disciplina[]> {
-    return this.http.get<Disciplina[]>(`${this.apiUrl}/nome/${nome}`);
+    return this.http.get<Disciplina[]>(`${this.apiUrl}/por-nome`, {
+      params: { nome },
+    });
   }
 }

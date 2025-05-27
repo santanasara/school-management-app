@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DisciplinaService } from '../../services/disciplina.service'; 
@@ -11,7 +13,7 @@ import { Disciplina } from '../../models/disciplina.model';
 @Component({
   selector: 'app-disciplina-list',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatInputModule, FormsModule, RouterModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatInputModule, MatIconModule, FormsModule, RouterModule],
   templateUrl: './disciplina-list.component.html',
 })
 export class DisciplinaListComponent implements OnInit {
@@ -29,12 +31,17 @@ export class DisciplinaListComponent implements OnInit {
     this.disciplinaService.getAll().subscribe((dados) => (this.disciplinas = dados));
   }
 
-  buscarPorNome(): void {
+  buscarPorNome(nome: string): void {
     if (!this.filtroNome.trim()) {
       this.carregarDisciplinas();
     } else {
-      this.disciplinaService.getByNome(this.filtroNome).subscribe((dados) => (this.disciplinas = dados));
+      this.disciplinaService.getByNome(nome).subscribe((dados) => (this.disciplinas = dados));
     }
+  }
+
+  onNomeFiltroChange(value: string): void {
+    this.filtroNome = value;
+    this.buscarPorNome(value);
   }
 
   deletar(id: number): void {
