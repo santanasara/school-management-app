@@ -44,7 +44,11 @@ export class DisciplinaListComponent implements OnInit {
     this.buscarPorNome(value);
   }
 
-  deletar(id: number): void {
-    this.disciplinaService.delete(id).subscribe(() => this.carregarDisciplinas());
+  deleteDisciplina(id: number | undefined): void {
+    if (id !== undefined && confirm('Tem certeza que deseja excluir esta disciplina?')) {
+      this.disciplinaService.delete(id).subscribe(() => {
+        this.carregarDisciplinas();
+      });
+    }
   }
 }
