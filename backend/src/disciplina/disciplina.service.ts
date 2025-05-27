@@ -46,4 +46,28 @@ export class DisciplinaService {
     const disciplina = await this.findOne(id);
     await this.disciplinaRepository.remove(disciplina);
   }
+
+  async findByLocal(local: string): Promise<Disciplina[]> {
+    return await this.disciplinaRepository
+      .createQueryBuilder('disciplina')
+      .leftJoinAndSelect('disciplina.turma', 'turma')
+      .where('turma.local = :local', { local })
+      .getMany();
+  }
+
+  async findByInstrutor(instrutorId: number): Promise<Disciplina[]> {
+    return await this.disciplinaRepository
+      .createQueryBuilder('disciplina')
+      .leftJoinAndSelect('disciplina.turma', 'turma')
+      .where('turma.instrutorId = :instrutorId', { instrutorId })
+      .getMany();
+  }
+
+  async findByNome(nome: string): Promise<Disciplina[]> {
+    return await this.disciplinaRepository
+      .createQueryBuilder('disciplina')
+      .leftJoinAndSelect('disciplina.turma', 'turma')
+      .where('disciplina.nome ILIKE :nome', { nome: `%${nome}%` })
+      .getMany();
+  }
 }
