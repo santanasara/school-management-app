@@ -6,7 +6,7 @@ import { FilterByLocalDto } from './dto/filter-by-local.dto';
 import { FilterByInstrutorDto } from './dto/filter-by-instrutor.dto';
 import { FilterByNomeDto } from './dto/filter-by-nome.dto';
 
-@Controller('disciplina')
+@Controller('disciplinas')
 export class DisciplinaController {
   constructor(private readonly disciplinaService: DisciplinaService) {}
 
