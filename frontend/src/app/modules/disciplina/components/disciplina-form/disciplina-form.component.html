@@ -1,0 +1,22 @@
+<mat-card class="max-w-md mx-auto mt-8 p-6 shadow-lg">
+  <h2 class="text-xl font-semibold mb-6">{{ editando ? 'Editar Disciplina' : 'Nova Disciplina' }}</h2>
+
+  <form (ngSubmit)="salvar()" class="flex flex-col gap-4">
+    <mat-form-field appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input matInput [(ngModel)]="disciplina.nome" name="nome" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Descrição</mat-label>
+      <textarea matInput [(ngModel)]="disciplina.descricao" name="descricao"></textarea>
+    </mat-form-field>
+
+    <div class="flex justify-between">
+      <button mat-raised-button color="primary" type="submit" class="flex-grow mr-2">Salvar</button>
+       <button mat-stroked-button color="warn" type="button" [routerLink]="['/disciplinas']" class="flex-grow ml-2">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</mat-card>

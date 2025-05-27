@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('cursos') // nome da tabela no banco
+@Entity('cursos')
 export class Curso {
   @PrimaryGeneratedColumn()
   id: number;
@@ -8,8 +8,8 @@ export class Curso {
   @Column()
   nome: string;
 
-  @Column()
-  descricao: string;
+  @Column({ nullable: true })
+  descricao?: string;
 
   @Column({ name: 'carga_horaria' })
   cargaHoraria: number;
