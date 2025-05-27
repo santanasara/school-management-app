@@ -12,27 +12,35 @@ export class DisciplinaService {
 
   constructor(private http: HttpClient) {}
 
-  findAll(): Observable<Disciplina[]> {
+  getAll(): Observable<Disciplina[]> {
     return this.http.get<Disciplina[]>(this.apiUrl);
   }
 
-  findOne(id: number): Observable<Disciplina> {
+  getById(id: number): Observable<Disciplina> {
     return this.http.get<Disciplina>(`${this.apiUrl}/${id}`);
   }
 
-  create(disciplina: Partial<Disciplina>): Observable<Disciplina> {
-    return this.http.post<Disciplina>(this.apiUrl, disciplina);
+  create(data: Partial<Disciplina>): Observable<Disciplina> {
+    return this.http.post<Disciplina>(this.apiUrl, data);
   }
 
-  update(id: number, disciplina: Partial<Disciplina>): Observable<Disciplina> {
-    return this.http.put<Disciplina>(`${this.apiUrl}/${id}`, disciplina);
+  update(id: number, data: Partial<Disciplina>): Observable<Disciplina> {
+    return this.http.put<Disciplina>(`${this.apiUrl}/${id}`, data);
   }
 
-  remove(id: number): Observable<void> {
+  delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  findByNome(nome: string): Observable<Disciplina[]> {
+  getByLocal(local: string): Observable<Disciplina[]> {
+    return this.http.get<Disciplina[]>(`${this.apiUrl}/local/${local}`);
+  }
+
+  getByInstrutor(instrutorId: number): Observable<Disciplina[]> {
+    return this.http.get<Disciplina[]>(`${this.apiUrl}/instrutor/${instrutorId}`);
+  }
+
+  getByNome(nome: string): Observable<Disciplina[]> {
     return this.http.get<Disciplina[]>(`${this.apiUrl}/nome/${nome}`);
   }
 }
