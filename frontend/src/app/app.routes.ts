@@ -6,7 +6,7 @@ export const routes: Routes = [
   {
     path: 'matriculas',
     loadComponent: () =>
-      import('./modules/curso/components/curso-shell/curso-shell.component')
+      import('./modules/matricula/components/curso-shell/matricula-shell.component')
         .then(m => m.MatriculaShellComponent),
     children: [
       {
@@ -37,8 +37,6 @@ export const routes: Routes = [
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   },
->>>>>>> main
-  // Rotas para a funcionalidade de Cursos
   {
     path: 'cursos', // Rota pai para todos os recursos de cursos
     loadComponent: () =>
