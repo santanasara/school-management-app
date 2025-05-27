@@ -17,8 +17,8 @@ export class MatriculaService {
   
     async create(createMatriculaDto: CreateMatriculaDto): Promise<Matricula> {
       let matricula = this.matriculaRepository.create(createMatriculaDto);
-      matricula.turma =  { id: 1 } as Turma ;
-      matricula.usuario = { id: 1 } as Usuario;
+
+      matricula.usuario = { id: 2 } as Usuario;
       
       return this.matriculaRepository.save(matricula);
     }
