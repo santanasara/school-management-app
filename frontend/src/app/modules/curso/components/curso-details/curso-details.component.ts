@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CursoService } from '../../services/curso.service';
-import { Curso } from '../../models/curso';
+import { Curso } from '../../models/curso.model';
 
 // Angular Material Modules
 import { MatCardModule } from '@angular/material/card';
