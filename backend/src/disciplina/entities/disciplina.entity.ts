@@ -15,6 +15,9 @@ export class Disciplina {
   @Column()
   nome: string;
 
+  @Column()
+  descricao?: string;
+
   @OneToMany(() => Turma, (turma) => turma.disciplina)
   turma: Turma[];
 

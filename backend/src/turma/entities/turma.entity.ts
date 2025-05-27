@@ -14,7 +14,7 @@ export class Turma {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   nome?: string;
 
   @Column()

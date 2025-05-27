@@ -8,8 +8,8 @@ export class Curso {
   @Column()
   nome: string;
 
-  @Column()
-  descricao: string;
+  @Column({ nullable: true })
+  descricao?: string;
 
   @Column({ name: 'carga_horaria' })
   cargaHoraria: number;
