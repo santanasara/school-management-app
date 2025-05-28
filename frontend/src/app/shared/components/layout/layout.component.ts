@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu'; 
 
 @Component({
   selector: 'app-layout',
@@ -12,7 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
     RouterOutlet,
     RouterLink,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
   ],
   templateUrl: './layout.component.html',
 })
