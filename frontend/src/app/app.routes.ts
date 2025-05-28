@@ -103,6 +103,24 @@ export const routes: Routes = [
     ]
   },
 
+  {
+    path: 'materiais',
+    loadComponent: () =>
+      import('./modules/material/components/material-shell/material-shell.component').then(m => m.MaterialShellComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./modules/material/components/material-list/material-list.component').then(m => m.MaterialListComponent)
+      },
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
+      }
+    ]
+  },
+
   // REDIRECIONAMENTO PADRÃO
   {
     path: '',
