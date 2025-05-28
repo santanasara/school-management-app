@@ -17,7 +17,7 @@ export class Usuario {
   id: number;
 
   @OneToOne(() => Pessoa, { eager:true,  onDelete: 'CASCADE'})
-  @JoinColumn({ name: 'pessoa_id' })
+  @JoinColumn({ name: 'id' })
   pessoa: Pessoa;
 
   @Column()  
