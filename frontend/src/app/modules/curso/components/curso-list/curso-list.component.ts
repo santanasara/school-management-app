@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 
 import { CursoService } from '../../services/curso.service';
-import { Curso } from '../../models/curso';
+import { Curso } from '../../models/curso.model';
 
 @Component({
   selector: 'app-curso-list',

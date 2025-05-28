@@ -9,9 +9,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { TurmaService } from './services/turma.service';
-import { Turma } from './models/Turma';
-import { DisciplinaService } from '../disciplina/disciplina.service';
 import { UsuarioService } from '../usuario/usuario.service';
+import { DisciplinaService } from '../disciplina/services/disciplina.service';
+import { Turma } from './models/turma.model';
 
 @Component({
   selector: 'app-turma',
@@ -37,7 +37,7 @@ export class TurmaComponent {
   private usuarioService = inject(UsuarioService);
 
   turmas$ = this.service.listar();
-  disciplinas$ = this.disciplinaService.listar();
+  disciplinas$ = this.disciplinaService.getAll();
   instrutores$ = this.usuarioService.listarProfessores();
 
   displayedColumns: string[] = [

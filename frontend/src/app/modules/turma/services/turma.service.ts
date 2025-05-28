@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Turma } from '../models/Turma';
 import { environment } from '../../../../environments/environments'; 
+import { Turma } from '../models/turma.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,14 @@
+<div class="p-6 max-w-3xl mx-auto">
+  <mat-card *ngIf="disciplina">
+    <mat-card-title class="text-xl">{{ disciplina.nome }}</mat-card-title>
+    <mat-card-content class="mt-4">
+      <p><strong>ID:</strong> {{ disciplina.id }}</p>
+      <p><strong>Descrição:</strong> {{ disciplina.descricao }}</p>
+      <p><strong>Turmas:</strong> {{ disciplina.turmas?.length || 0 }}</p>
+    </mat-card-content>
+    <mat-card-actions class="mt-4">
+      <a mat-button routerLink="/disciplinas">Voltar</a>
+      <a mat-button [routerLink]="['/disciplinas/editar', disciplina.id]">Editar</a>
+    </mat-card-actions>
+  </mat-card>
+</div>
