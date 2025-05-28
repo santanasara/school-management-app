@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import "tailwindcss";
 
 
@@ -8,5 +8,6 @@ html, body { height: 100%; }
 body { 
     margin: 0; 
     font-family: "Lexend", sans-serif;
+    --mdc-filled-text-field-container-color: white;
 
 }

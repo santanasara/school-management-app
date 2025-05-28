@@ -9,14 +9,14 @@ import {
   OneToOne,
 } from 'typeorm';
 
-type Perfil = 'prof' | 'aluno' | 'admin';
+export type Perfil = 'prof' | 'aluno' | 'admin';
 
 @Entity('usuario')
 export class Usuario {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Pessoa, {eager:true})
+  @OneToOne(() => Pessoa, { eager:true,  onDelete: 'CASCADE'})
   @JoinColumn({ name: 'pessoa_id' })
   pessoa: Pessoa;
 
