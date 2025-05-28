@@ -16,34 +16,20 @@ export class TurmaService {
     return this.http.get<Turma[]>(this.apiUrl);
   }
 
-  /*
-  createTurma(turma: Turma): Observable<Turma> {
+  listar(): Observable<Turma[]> {
+    return this.http.get<Turma[]>(this.apiUrl);
+  }
+
+  criar(turma: Omit<Turma, 'id'>): Observable<Turma> {
     return this.http.post<Turma>(this.apiUrl, turma);
   }
 
-  getTurmaById(id: number): Observable<Turma> {
-    return this.http.get<Turma>(`${this.apiUrl}/${id}`);
+  remover(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
 
-  
-  updateTurma(id: number, Turma: Turma): Observable<Turma> {
-    return this.http.patch<Turma>(`${this.apiUrl}/${id}`, Turma);
+  alterar(id: number, turma: Partial<Turma>): Observable<any>{
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, turma);
   }
 
-  deleteTurma(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
-
-  getTurmasAtivos(): Observable<Turma[]> {
-    return this.http.get<Turma[]>(`${this.apiUrl}/ativos`);
-  }
-
-  getTurmasPorNome(nome: string): Observable<Turma[]> {
-    return this.http.get<Turma[]>(`${this.apiUrl}/buscar-por-nome/${nome}`);
-  }
-
-  getTurmasPorCargaMinima(min: number): Observable<Turma[]> {
-    return this.http.get<Turma[]>(`${this.apiUrl}/carga-maior-que/${min}`);
-  }
-    */
 }

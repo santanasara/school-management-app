@@ -74,6 +74,13 @@ export const routes: Routes = [
     ]
   },
 
+  {
+    path: 'turmas',
+    loadComponent: () =>
+      import('./modules/turma/turma.component')
+        .then(m => m.TurmaComponent),
+  },
+
   // Rota curinga para qualquer URL não encontrada
   { path: '**', redirectTo: '' }
 ];

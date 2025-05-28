@@ -1,4 +1,6 @@
+import { Disciplina } from "../../disciplina/Disciplina";
 import { Matricula } from "../../matricula/models/Matricula";
+import { Usuario } from "../../usuario/Usuario";
 
 export interface Turma {
     id: number;
@@ -7,7 +9,7 @@ export interface Turma {
     horario: string;
     dataInicial: Date;
     dataFinal: Date;
-    //instrutor?: Usuario | null;
-    //disciplina?: Disciplina | null;
+    instrutor?: Usuario | null;
+    disciplina?: Disciplina | null;
     matriculas: Matricula[];
 }

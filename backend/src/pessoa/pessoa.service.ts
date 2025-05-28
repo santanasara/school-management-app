@@ -22,12 +22,12 @@ export class PessoaService {
   }
 
   async findOne(id: number): Promise<Pessoa | null> {
-    return await this.pessoaRepository.findOne({ where: { pessoa_id: id } });
+    return await this.pessoaRepository.findOne({ where: { id: id } });
   }
 
   async update(id: number, updatePessoaDto: UpdatePessoaDto): Promise<Pessoa | null> {
     await this.pessoaRepository.update(id, updatePessoaDto);
-    return await this.pessoaRepository.findOne({ where: { pessoa_id: id } });
+    return await this.pessoaRepository.findOne({ where: { id: id } });
   }
 
   async remove(id: number): Promise<void> {

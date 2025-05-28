@@ -17,6 +17,11 @@ export class UsuarioController {
     return this.usuarioService.findAll();
   }
 
+  @Get('/professor')
+  listarProfessores() {
+    return this.usuarioService.listarProfessores();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usuarioService.findOne(+id);

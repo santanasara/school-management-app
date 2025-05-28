@@ -13,8 +13,13 @@ export class UsuarioService {
   ) {}
 
   async create(createUsuarioDto: CreateUsuarioDto): Promise<Usuario> {
-    const usuario = this.usuarioRepository.create(createUsuarioDto);
+    const pessoa = {id:createUsuarioDto.pessoaId}
+    const usuario = this.usuarioRepository.create({...createUsuarioDto, pessoa});
     return await this.usuarioRepository.save(usuario);
+  }
+
+  async listarProfessores(){
+    return await this.usuarioRepository.find({ relations: ['pessoa'], where: {perfil:'prof'} });
   }
 
   async findAll(): Promise<Usuario[]> {
