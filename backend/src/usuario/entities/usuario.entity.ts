@@ -16,20 +16,20 @@ export class Usuario {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Pessoa, { eager:true,  onDelete: 'CASCADE'})
-  @JoinColumn({ name: 'id' })
-  pessoa: Pessoa;
-
-  @Column()  
+  @Column({ name: 'pessoa_id' })  
   pessoa_id: number;
 
-  @Column({select:false}) 
+  @OneToOne(() => Pessoa)
+  @JoinColumn({ name: 'pessoa_id' })
+  pessoa: Pessoa;
+
+  @Column() 
   email: string;
 
-  @Column({select:false}) 
+  @Column() 
   senha: string;
 
-  @Column({select:false})
+  @Column()
   login: string;
 
   @Column() 

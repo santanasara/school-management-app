@@ -22,8 +22,8 @@ services:
       - db
     command: yarn start:dev
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - .:/app
+      - /app/node_modules
 
 volumes:
   db_data:
