@@ -87,7 +87,7 @@ export class TurmaComponent {
   }
 
   exibirTurma(turma: Turma){
-    this.router.navigate(['/turma', turma.id]);
+    this.router.navigate(['/turmas', turma.id]);
   }
 
   iniciarEdicao(turma: Turma) {

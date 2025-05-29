@@ -81,8 +81,12 @@ export class MatriculaService {
     }
 
     async listarMatriculasPorTurma(id:number){
-      return this.matriculaRepository.find({
-        where: { turma: { id:id } },
-      });
+      return this.matriculaRepository
+        .createQueryBuilder('matricula')
+        .leftJoin('matricula.turma', 'turma')
+        .leftJoinAndSelect('matricula.usuario', 'usuario')
+        .leftJoinAndSelect('usuario.pessoa', 'pessoa')
+        .where('turma.id = :id', { id })
+      .getMany();
     }
 }

@@ -3,12 +3,12 @@
 
     <ng-container matColumnDef="nome">
       <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-      <mat-cell *matCellDef="let usuario"> {{ usuario.pessoa?.nome?? "" }} </mat-cell>
+      <mat-cell *matCellDef="let matricula"> {{ matricula.usuario.pessoa?.nome?? "" }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-      <mat-cell *matCellDef="let usuario"> {{ usuario.email?? "" }} </mat-cell>
+      <mat-cell *matCellDef="let matricula"> {{ matricula.usuario.email?? "" }} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

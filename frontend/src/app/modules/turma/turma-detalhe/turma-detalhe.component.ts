@@ -4,10 +4,11 @@ import { TurmaService } from '../services/turma.service';
 import { switchMap, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatriculasComponent } from './matriculas/matriculas.component';
+import { AtividadeComponent } from '../atividade/atividade.component';
 
 @Component({
   selector: 'app-turma-detalhe',
-  imports: [CommonModule, MatriculasComponent],
+  imports: [CommonModule, MatriculasComponent, AtividadeComponent],
   templateUrl: './turma-detalhe.component.html',
   styleUrl: './turma-detalhe.component.css'
 })
