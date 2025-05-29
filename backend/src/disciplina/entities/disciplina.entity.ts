@@ -1,10 +1,5 @@
 import { Turma } from 'src/turma/entities/turma.entity';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity('disciplina')
 export class Disciplina {
@@ -19,5 +14,4 @@ export class Disciplina {
 
   @OneToMany(() => Turma, (turma) => turma.disciplina)
   turma: Turma[];
-
 }

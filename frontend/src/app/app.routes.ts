@@ -113,11 +113,22 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./modules/material/components/material-list/material-list.component').then(m => m.MaterialListComponent)
       },
+
+      {
+        path: 'novo',
+        loadComponent: () =>
+          import('./modules/material/components/material-form/material-form.component').then(m => m.MaterialFormComponent)
+      },
+      {
+        path: 'editar/:id',
+        loadComponent: () =>
+          import('./modules/material/components/material-form/material-form.component').then(m => m.MaterialFormComponent)
+      },
       {
         path: '**',
         redirectTo: '',
         pathMatch: 'full'
-      }
+      },
     ]
   },
 

@@ -37,10 +37,10 @@ export class MaterialListComponent implements OnInit {
   materiais: Material[] = [];
   disciplinas: Disciplina[] = [];
 
-  nomeFiltro: string = '';
+  tituloFiltro: string = '';
   disciplinaFiltroId: number | null = null;
 
-  displayedColumns: string[] = ['id', 'nome', 'tipo', 'disciplina', 'acoes'];
+  displayedColumns: string[] = ['id', 'titulo', 'tipo', 'disciplina', 'acoes'];
 
   constructor(
     private materialService: MaterialService,
@@ -65,12 +65,12 @@ export class MaterialListComponent implements OnInit {
     });
   }
 
-  buscarPorNome(nome: string): void {
-    if (!nome.trim()) {
+  buscarPorTitulo(titulo: string): void {
+    if (!titulo.trim()) {
       this.loadMateriais();
       return;
     }
-    this.materialService.getByTitulo(nome).subscribe(data => {
+    this.materialService.getByTitulo(titulo).subscribe(data => {
       this.materiais = data;
     });
   }
@@ -85,9 +85,9 @@ export class MaterialListComponent implements OnInit {
     });
   }
 
-  onNomeFiltroChange(value: string): void {
-    this.nomeFiltro = value;
-    this.buscarPorNome(value);
+  onTituloFiltroChange(value: string): void {
+    this.tituloFiltro = value;
+    this.buscarPorTitulo(value);
   }
 
   onDisciplinaFiltroChange(id: string): void {

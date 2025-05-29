@@ -15,13 +15,13 @@
 <div class="flex flex-wrap gap-4 mb-6 items-baseline">
   <!-- Filtro por nome -->
   <mat-form-field class="min-w-[200px] max-w-[250px] flex-1">
-    <mat-label>Buscar por nome</mat-label>
+    <mat-label>Buscar por título</mat-label>
     <input
       matInput
       type="text"
-      [(ngModel)]="nomeFiltro"
-      (input)="onNomeFiltroChange(nomeFiltro)"
-      placeholder="Buscar por nome"
+      [(ngModel)]="tituloFiltro"
+      (input)="onTituloFiltroChange(tituloFiltro)"
+      placeholder="Buscar por título"
     />
   </mat-form-field>
 
@@ -54,9 +54,9 @@
     </ng-container>
 
     <!-- Nome -->
-    <ng-container matColumnDef="nome">
-      <th mat-header-cell *matHeaderCellDef> Nome </th>
-      <td mat-cell *matCellDef="let material"> {{ material.nome }} </td>
+    <ng-container matColumnDef="titulo">
+      <th mat-header-cell *matHeaderCellDef> Título </th>
+      <td mat-cell *matCellDef="let material"> {{ material.titulo }} </td>
     </ng-container>
 
     <!-- Tipo -->

@@ -13,5 +13,5 @@ export interface Material {
   titulo: string;
   tipo: TipoMaterial;
   link_arquivo: string;
-  disciplina: Disciplina | null;
+  disciplina: number;
 }
