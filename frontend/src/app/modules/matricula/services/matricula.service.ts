@@ -20,30 +20,29 @@ export class MatriculaService {
     return this.http.post<Matricula>(this.apiUrl, Matricula);
   }
 
-  /*
-  getMatriculaById(id: number): Observable<Matricula> {
-    return this.http.get<Matricula>(`${this.apiUrl}/${id}`);
-  }
-
-  
-  updateMatricula(id: number, Matricula: Matricula): Observable<Matricula> {
-    return this.http.patch<Matricula>(`${this.apiUrl}/${id}`, Matricula);
-  }
-
   deleteMatricula(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
-
-  getMatriculasAtivos(): Observable<Matricula[]> {
-    return this.http.get<Matricula[]>(`${this.apiUrl}/ativos`);
   }
 
   getMatriculasPorNome(nome: string): Observable<Matricula[]> {
     return this.http.get<Matricula[]>(`${this.apiUrl}/buscar-por-nome/${nome}`);
   }
 
-  getMatriculasPorCargaMinima(min: number): Observable<Matricula[]> {
-    return this.http.get<Matricula[]>(`${this.apiUrl}/carga-maior-que/${min}`);
+  getMatriculaById(id: number): Observable<Matricula> {
+    return this.http.get<Matricula>(`${this.apiUrl}/${id}`);
   }
+  
+  updateMatricula(id: number, Matricula: Matricula): Observable<Matricula> {
+    return this.http.patch<Matricula>(`${this.apiUrl}/${id}`, Matricula);
+  }
+    /*
+
+
+  
+
+  getMatriculasAtivos(): Observable<Matricula[]> {
+    return this.http.get<Matricula[]>(`${this.apiUrl}/ativos`);
+  }
+
     */
 }

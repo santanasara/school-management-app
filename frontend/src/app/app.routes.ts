@@ -21,20 +21,14 @@ export const routes: Routes = [
           import('./modules/matricula/components/matricula-create/matricula-create.component')
         .then(m => m.MatriculaCreateComponent)
       },
-        /*
       {
         path: ':id', 
         loadComponent: () =>
-          import('./modules/curso/components/matricula-details/matricula-details.component')
-            .then(m => m.CursoDetailsComponent)
-      },
-      {
-        path: 'editar/:id', 
-        loadComponent: () =>
-          import('./modules/curso/components/matricula-edit/matricula-edit.component')
-            .then(m => m.CursoEditComponent)
-      },
-      */
+          import('./modules/matricula/components/matricula-details/matricula-details.component')
+        .then(m => m.MatriculaDetailsComponent)
+        },
+
+      
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   },

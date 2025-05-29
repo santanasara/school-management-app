@@ -42,7 +42,7 @@ export class MatriculaService {
         .leftJoinAndSelect('matricula.turma', 'turma')
         .leftJoinAndSelect('turma.disciplina', 'disciplina')
         .where("1 = 1")
-        .andWhere('LOWER(disciplina.nome) LIKE %LOWER(:nome)%', { nome: `%${nome}%` }).getMany()
+        .andWhere('(LOWER(disciplina.nome) LIKE LOWER(:nome) OR LOWER (turma.nome) LIKE LOWER(:nome))', { nome: `%${nome}%` }).getMany()
     }
   
     async findByCargaHorariaMinima(min: number): Promise<Matricula[]> {

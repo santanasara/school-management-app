@@ -45,7 +45,6 @@ export class MatriculaCreateComponent implements OnInit {
       dataDatricula: [new Date(), Validators.required],
       //usuario: Usuario;
       turma: [null, Validators.required],
-      //notas: Nota[];
       situacaoMatricula: [SituacaoMatricula.ATIVA, Validators.required],
     });
     this.loadTurmas();
@@ -55,7 +54,7 @@ export class MatriculaCreateComponent implements OnInit {
     if (this.matriculaForm.valid) {
       this.matriculaService.createMatricula(this.matriculaForm.value).subscribe(() => {
         console.log('Matricula criada com sucesso!');
-        this.router.navigate(['/matricula']);
+        this.router.navigate(['/matriculas']);
       });
     } else {
       console.log('Formulário inválido.');
