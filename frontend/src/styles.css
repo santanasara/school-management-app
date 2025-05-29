@@ -4,6 +4,7 @@
 
 body { 
     margin: 0; 
-    font-family: "Lexend", sans-serif !important;
+    font-family: "Lexend", sans-serif;
+    --mdc-filled-text-field-container-color: white;
 
 }

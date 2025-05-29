@@ -132,6 +132,13 @@ export const routes: Routes = [
     ]
   },
 
+  {
+    path: 'turmas',
+    loadComponent: () =>
+      import('./modules/turma/turma.component')
+        .then(m => m.TurmaComponent),
+  },
+
   // REDIRECIONAMENTO PADRÃO
   {
     path: '',

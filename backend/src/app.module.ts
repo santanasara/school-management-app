@@ -12,6 +12,7 @@ import { CursoModule } from './curso/curso.module';
 import { MatriculaModule } from './matricula/matricula.module';
 import { NotaModule } from './nota/nota.module';
 import { MaterialModule } from './material/material.module';
+import { AuthModule } from './auth/auth.module';
 
 function getEnvFilePath(): string {
   switch (process.env.NODE_ENV) {
@@ -42,6 +43,7 @@ function getEnvFilePath(): string {
     MatriculaModule,
     NotaModule,
     MaterialModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

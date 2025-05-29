@@ -1,0 +1,108 @@
+<div>
+<form [formGroup]="form" (ngSubmit)="salvar()" class="turma-form grid grid-cols-2 gap-2">
+
+  <mat-form-field appearance="fill" class="col-span-2">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="nome">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Local</mat-label>
+    <input matInput formControlName="local">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Horário</mat-label>
+    <input matInput formControlName="horario">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Data de Início</mat-label>
+    <input matInput [matDatepicker]="pickerInicio" formControlName="dataInicial">
+    <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+    <mat-datepicker #pickerInicio></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Data Final</mat-label>
+    <input matInput [matDatepicker]="pickerFinal" formControlName="dataFinal">
+    <mat-datepicker-toggle matSuffix [for]="pickerFinal"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFinal></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Disciplina</mat-label>
+    <mat-select formControlName="disciplinaId">
+      <mat-option *ngFor="let disciplina of disciplinas$ | async" [value]="disciplina.id">
+        {{ disciplina.nome }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Instrutor</mat-label>
+    <mat-select formControlName="instrutorId">
+      <mat-option *ngFor="let instrutor of instrutores$ | async" [value]="instrutor.id">
+        {{ instrutor.pessoa.nome }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="submit">{{!form.get('id')?.value? "Cadastrar nova turma": "Alterar dados de turma"}}</button>
+  <button *ngIf="form.get('id')?.value" mat-flat-button color="primary" type="submit" (click)="cancelarEdicao()">Cancelar Edição</button>
+</form>
+
+<div class="mt-10">
+  <p class="mb-3">Turmas cadastradas</p>
+  <ng-container *ngIf="turmas$ | async as turmas">
+    <mat-table [dataSource]="turmas">
+
+    <ng-container matColumnDef="nome">
+      <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+      <mat-cell *matCellDef="let turma"> {{ turma.nome?? "" }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="local">
+      <mat-header-cell *matHeaderCellDef> Local </mat-header-cell>
+      <mat-cell *matCellDef="let turma"> {{ turma.local?? "" }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="horario">
+      <mat-header-cell *matHeaderCellDef> Horário </mat-header-cell>
+      <mat-cell *matCellDef="let turma"> {{ turma.horario?? "" }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dataInicial">
+      <mat-header-cell *matHeaderCellDef> Início </mat-header-cell>
+      <mat-cell *matCellDef="let turma"> {{ turma.dataInicial | date:'dd/MM/yyyy' }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="dataFinal">
+      <mat-header-cell *matHeaderCellDef> Fim </mat-header-cell>
+      <mat-cell *matCellDef="let turma"> {{ turma.dataFinal | date:'dd/MM/yyyy' }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="disciplina">
+      <mat-header-cell *matHeaderCellDef> Disciplina </mat-header-cell>
+      <mat-cell *matCellDef="let turma"> {{ turma.disciplina?.nome?? "" }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="instrutor">
+      <mat-header-cell *matHeaderCellDef> Instrutor </mat-header-cell>
+      <mat-cell *matCellDef="let turma"> {{ turma.instrutor?.pessoa?.nome?? "" }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes">
+      <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+      <mat-cell *matCellDef="let turma">
+        <button mat-button color="primary" (click)="iniciarEdicao(turma)">Editar</button>
+        <button mat-button color="warn" (click)="excluir(turma)">Excluir</button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  </ng-container>
+</div>
+</div>

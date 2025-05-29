@@ -4,17 +4,29 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Usuario } from './entities/usuario.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuarioService {
-    constructor(
+  constructor(
     @InjectRepository(Usuario)
     private readonly usuarioRepository: Repository<Usuario>,
-  ) {}
+  ) { }
 
   async create(createUsuarioDto: CreateUsuarioDto): Promise<Usuario> {
-    const usuario = this.usuarioRepository.create(createUsuarioDto);
+    const pessoa = { id: createUsuarioDto.pessoaId }
+    const hashedPassword = await bcrypt.hash(createUsuarioDto.senha, 10);
+    const usuario = this.usuarioRepository.create({
+      ...createUsuarioDto,
+      senha: hashedPassword,
+      pessoa,
+    });
+
     return await this.usuarioRepository.save(usuario);
+  }
+
+  async listarProfessores() {
+    return await this.usuarioRepository.find({ relations: ['pessoa'], where: { perfil: 'prof' } });
   }
 
   async findAll(): Promise<Usuario[]> {
@@ -35,5 +47,12 @@ export class UsuarioService {
 
   async remove(id: number): Promise<void> {
     await this.usuarioRepository.delete(id);
+  }
+
+  async findByLogin(login: string): Promise<Usuario | null> {
+    return await this.usuarioRepository.findOne({
+      where: { login },
+      relations: ['pessoa'],
+    });
   }
 }

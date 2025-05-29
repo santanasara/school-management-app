@@ -44,6 +44,23 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Authenticate
+
+- Set the JWT_SECRET env
+- Run the application
+- Login with a user
+```
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"login": "juliana", "senha": "123456"}'
+```
+- Copy the access_token
+- Make a request passing the Authorization header
+```
+curl -X GET http://localhost:3000/pessoa \
+  -H "Authorization: Bearer access_token"
+```
+
 ## Run tests
 
 ```bash

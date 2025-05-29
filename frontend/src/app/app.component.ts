@@ -6,6 +6,6 @@ import { LayoutComponent } from './shared/components/layout/layout.component';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, LayoutComponent],
-  template: `<app-layout></app-layout>`,
+  templateUrl: './app.component.html',
 })
 export class AppComponent {}

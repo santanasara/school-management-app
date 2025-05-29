@@ -3,6 +3,9 @@ import { AppModule } from '../src/app.module';
 import { TurmaService } from '../src/turma/turma.service';
 import { AtividadeService } from 'src/atividade/atividade.service';
 import { CreateAtividadeDto } from 'src/atividade/dto/create-atividade.dto';
+import { DisciplinaService } from 'src/disciplina/disciplina.service';
+import { UsuarioService } from 'src/usuario/usuario.service';
+import { PessoaService } from 'src/pessoa/pessoa.service';
 
 const turma1 = {
   "nome": "Nome de Turma Simples",
@@ -32,18 +35,42 @@ async function bootstrap() {
   
   const turmaService = app.get(TurmaService);
   const atividadeService = app.get(AtividadeService);
+  const disciplinaService = app.get(DisciplinaService);
+  const usuarioService = app.get(UsuarioService);
+  const pessoaService = app.get(PessoaService);
 
+  await pessoaService.create({nome: "Cleiane Clementino", cpf: "77777777777"})
+  await pessoaService.create({nome: "Alvo Dumbledore", cpf: "99999999999"})
+  await pessoaService.create({nome: "Manon Bico Negro", cpf: "88888888888"})
+  await pessoaService.create({nome: "Luna Lovegood", cpf: "66666666666"})
+  await pessoaService.create({nome: "Kovthe", cpf: "55555555555"})
+  await pessoaService.create({nome: "Nynaeve", cpf: "44444444444"})
+
+  await usuarioService.create({email: "clei.bondade@gmail.com", "login": "cleiane", "senha": "123456", "perfil": "admin", "pessoaId":1})
+  await usuarioService.create({email: "alvoteste.bondade@gmail.com", "login": "juliana", "senha": "123456", "perfil": "prof", "pessoaId":2})
+  await usuarioService.create({email: "manonteste.bondade@gmail.com", "login": "manon", "senha": "123456", "perfil": "aluno", "pessoaId":3})
+  await usuarioService.create({email: "lunateste.bondade@gmail.com", "login": "luna", "senha": "123456", "perfil": "admin", "pessoaId":4})
+  await usuarioService.create({email: "kovtheteste.bondade@gmail.com", "login": "kovthe", "senha": "123456", "perfil": "prof", "pessoaId":5})
+  await usuarioService.create({email: "nynaeveteste.bondade@gmail.com", "login": "nynaeve", "senha": "123456", "perfil": "aluno", "pessoaId":6})
+
+  await disciplinaService.create({nome: "Disciplina 1 "})
+  await disciplinaService.create({nome: "Disciplina 2 "})
+  await disciplinaService.create({nome: "Disciplina 3 "})
+  await disciplinaService.create({nome: "Disciplina 4 "})
+
+  await turmaService.create({...turma1, instrutorId:2});
+  await turmaService.create({...turma2, instrutorId:5, disciplinaId: 1 });
+  await turmaService.create({...turma1,  disciplinaId: 1});
+  await turmaService.create({...turma1,  disciplinaId: 2});
   await turmaService.create(turma1);
   await turmaService.create(turma2);
-  await turmaService.create(turma1);
-  await turmaService.create(turma1);
-  await turmaService.create(turma1);
-  await turmaService.create(turma1);
 
   await atividadeService.create(atividade1);
   await atividadeService.create(atividade2);
   await atividadeService.create(atividade3);
   await atividadeService.create(atividade4);
+
+
 
   await app.close();
 }
