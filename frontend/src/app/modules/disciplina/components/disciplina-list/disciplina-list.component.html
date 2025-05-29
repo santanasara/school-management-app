@@ -59,17 +59,25 @@
       <td mat-cell *matCellDef="let d"> {{ d.descricao }} </td>
     </ng-container>
 
+    <!-- Curso Column -->
+    <ng-container matColumnDef="curso">
+      <th mat-header-cell *matHeaderCellDef> Curso </th>
+      <td mat-cell *matCellDef="let d"> {{ d.curso?.nome || '---' }} </td>
+    </ng-container>
+
+
     <!-- Ações Column -->
     <ng-container matColumnDef="acoes">
       <th mat-header-cell *matHeaderCellDef> Ações </th>
       <td mat-cell *matCellDef="let d" class="space-x-2">
-        <button mat-button color="primary" [routerLink]="['/disciplinas', d.id]">Ver Detalhes</button>
+        <button mat-button color="primary" [routerLink]="['/disciplinas', d.id]">Detalhar</button>
         <button mat-button color="accent" [routerLink]="['/disciplinas/editar', d.id]">Editar</button>
         <button mat-button color="warn" (click)="deleteDisciplina(d.id)">Excluir</button>
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['id', 'nome', 'descricao', 'acoes']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['id', 'nome', 'descricao', 'acoes'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
   </table>
 </ng-template>

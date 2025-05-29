@@ -19,7 +19,7 @@ import { Disciplina } from '../../models/disciplina.model';
 export class DisciplinaListComponent implements OnInit {
   private disciplinaService = inject(DisciplinaService);
 
-  displayedColumns = ['id', 'nome', 'descricao', 'acoes'];
+  displayedColumns = ['id', 'nome', 'descricao', 'curso', 'acoes'];
   disciplinas: Disciplina[] = [];
   filtroNome = '';
 
