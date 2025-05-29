@@ -1,8 +1,17 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './modules/auth/auth.guard';
+import { LoginComponent } from './modules/auth/components/login';
+import { UnauthorizedComponent } from './modules/auth/components/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'unauthorized',
+    component: UnauthorizedComponent
+  },
   // ROTAS DE CURSOS
   {
+    canActivate: [AuthGuard],
     path: 'cursos',
     loadComponent: () =>
       import('./modules/curso/components/curso-shell/curso-shell.component').then(m => m.CursoShellComponent),
@@ -37,6 +46,7 @@ export const routes: Routes = [
 
   // ROTAS DE DISCIPLINAS
   {
+    canActivate: [AuthGuard],
     path: 'disciplinas',
     loadComponent: () =>
       import('./modules/disciplina/components/disciplina-shell/disciplina-shell.component').then(m => m.DisciplinaShellComponent),
@@ -47,6 +57,10 @@ export const routes: Routes = [
           import('./modules/disciplina/components/disciplina-list/disciplina-list.component').then(m => m.DisciplinaListComponent)
       },
       {
+        canActivate: [AuthGuard],
+        data: {
+          role: ['admin', 'prof']
+        },
         path: 'novo',
         loadComponent: () =>
           import('./modules/disciplina/components/disciplina-form/disciplina-form.component').then(m => m.DisciplinaFormComponent)
@@ -71,6 +85,7 @@ export const routes: Routes = [
 
   // ROTAS DE MATRÍCULAS
   {
+    canActivate: [AuthGuard],
     path: 'matriculas',
     loadComponent: () =>
       import('./modules/matricula/components/matricula-shell/matricula-shell.component').then(m => m.MatriculaShellComponent),
@@ -103,36 +118,39 @@ export const routes: Routes = [
     ]
   },
 
-  {
-    path: 'materiais',
-    loadComponent: () =>
-      import('./modules/material/components/material-shell/material-shell.component').then(m => m.MaterialShellComponent),
-    children: [
-      {
-        path: '',
-        loadComponent: () =>
-          import('./modules/material/components/material-list/material-list.component').then(m => m.MaterialListComponent)
-      },
+  // {
 
-      {
-        path: 'novo',
-        loadComponent: () =>
-          import('./modules/material/components/material-form/material-form.component').then(m => m.MaterialFormComponent)
-      },
-      {
-        path: 'editar/:id',
-        loadComponent: () =>
-          import('./modules/material/components/material-form/material-form.component').then(m => m.MaterialFormComponent)
-      },
-      {
-        path: '**',
-        redirectTo: '',
-        pathMatch: 'full'
-      },
-    ]
-  },
+  //   canActivate: [AuthGuard],
+  //   path: 'turmas',
+  //   loadComponent: () =>
+  //     import('./modules/material/components/material-shell/material-shell.component').then(m => m.MaterialShellComponent),
+  //   children: [
+  //     {
+  //       path: '',
+  //       loadComponent: () =>
+  //         import('./modules/material/components/material-list/material-list.component').then(m => m.MaterialListComponent)
+  //     },
+
+  //     {
+  //       path: 'novo',
+  //       loadComponent: () =>
+  //         import('./modules/material/components/material-form/material-form.component').then(m => m.MaterialFormComponent)
+  //     },
+  //     {
+  //       path: 'editar/:id',
+  //       loadComponent: () =>
+  //         import('./modules/material/components/material-form/material-form.component').then(m => m.MaterialFormComponent)
+  //     },
+  //     {
+  //       path: '**',
+  //       redirectTo: '',
+  //       pathMatch: 'full'
+  //     },
+  //   ]
+  // },
 
   {
+    canActivate: [AuthGuard],
     path: 'turmas',
     loadComponent: () =>
       import('./modules/turma/turma.component')
