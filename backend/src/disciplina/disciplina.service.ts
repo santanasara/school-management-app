@@ -19,14 +19,14 @@ export class DisciplinaService {
 
   async findAll(): Promise<Disciplina[]> {
     return await this.disciplinaRepository.find({
-      relations: ['turma'], // carrega as turmas associadas
+      relations: ['turma', 'curso'],
     });
   }
 
   async findOne(id: number): Promise<Disciplina> {
     const disciplina = await this.disciplinaRepository.findOne({
       where: { id },
-      relations: ['turma'], // opcional
+      relations: ['turma', 'curso'],
     });
 
     if (!disciplina) {
