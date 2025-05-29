@@ -1,4 +1,4 @@
-<mat-card class="max-w-md mx-auto mt-8 p-6 shadow-lg">
+<mat-card class="max-w-4xl p-6 shadow-lg">
   <h2 class="text-xl font-semibold mb-6">{{ editando ? 'Editar Disciplina' : 'Nova Disciplina' }}</h2>
 
   <form (ngSubmit)="salvar()" class="flex flex-col gap-4">
@@ -12,9 +12,26 @@
       <textarea matInput [(ngModel)]="disciplina.descricao" name="descricao"></textarea>
     </mat-form-field>
 
-    <div class="flex justify-between">
-      <button mat-raised-button color="primary" type="submit" class="flex-grow mr-2">Salvar</button>
-       <button mat-stroked-button color="warn" type="button" [routerLink]="['/disciplinas']" class="flex-grow ml-2">
+    <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Curso</mat-label>
+        <mat-select [(ngModel)]="disciplina.curso" name="disciplina">
+            <ng-container *ngIf="cursos.length > 0; else semCursosOption">
+            <mat-option *ngFor="let c of cursos" [value]="c.id">
+                {{ c.nome }}
+            </mat-option>
+            </ng-container>
+            <!-- Se não houver cursos -->
+            <ng-template #semCursosOption>
+            <mat-option disabled>
+                Nenhum curso cadastrado
+            </mat-option>
+            </ng-template>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="flex gap-4">
+      <button mat-raised-button color="primary" type="submit" class="">Salvar</button>
+       <button mat-stroked-button color="warn" type="button" [routerLink]="['/disciplinas']" class="">
         Cancelar
       </button>
     </div>
