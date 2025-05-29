@@ -1,8 +1,9 @@
-import { Component, computed, inject, input } from "@angular/core";
+import { Component,  inject, input} from "@angular/core";
 import { TurmaService } from "../../services/turma.service";
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { of } from "rxjs";
+import { Observable, } from "rxjs";
+import { Matricula } from "../../../matricula/models/matricula.model";
 
 @Component({
   selector: 'app-turma-detalhe-matricula',
@@ -12,14 +13,15 @@ import { of } from "rxjs";
 })
 export class MatriculasComponent {
   turmaId = input.required<number>();
-  
   private turmaService = inject(TurmaService);
-    matriculas$ = computed(() => {
-    const id = this.turmaId();
-    return id != null ? this.turmaService.listarMatriculas(id) : of([]);
-  })();
 
-    displayedColumns: string[] = [
+  matriculas$: Observable<Matricula[]> | undefined;
+
+  ngOnInit(){
+    this.matriculas$ = this.turmaService.listarMatriculas(this.turmaId());
+  }
+
+  displayedColumns: string[] = [
     'nome',
     'email',
   ]; 

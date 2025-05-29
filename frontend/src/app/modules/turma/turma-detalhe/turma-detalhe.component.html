@@ -10,11 +10,17 @@
     <p>Local: {{turma.local}} | Horário: {{turma.horario}} | Período: {{turma.dataInicial}} a {{turma.dataFinal}}</p>
     <p>Instrutor: <span>{{turma.instrutor?.pessoa?.nome ? (turma.instrutor!.pessoa!.nome + " | " + (turma.instrutor?.email?? "")) : "Não definido"}} </span></p>
 
-    <div *ngIf="turma.id">
-        <app-turma-detalhe-matricula [turmaId]="turma.id"></app-turma-detalhe-matricula>
+    <p class="mt-5 mb-3">Participantes</p>
+
+    <div class="mb-3">
+        <app-turma-detalhe-matricula *ngIf="turma.id" [turmaId]="turma.id"></app-turma-detalhe-matricula>
     </div>
 
-    <div>
 
+    <p class="mt-5 mb-3">Atividades</p>
+
+    <div class="mb-3">
+        <app-atividade *ngIf="turma.id" [turmaId]="turma.id"></app-atividade>
     </div>
+
 </div>
