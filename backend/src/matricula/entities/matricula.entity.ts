@@ -18,7 +18,7 @@ export class Matricula {
     id: number;
 
     @Column({ type: 'date' })
-    dataDatricula: Date;
+    dataMatricula: Date;
 
     @ManyToOne(() => Usuario, (usuario) => usuario.matriculas, { eager: true })
     @JoinColumn({ name: 'usuario_id' })

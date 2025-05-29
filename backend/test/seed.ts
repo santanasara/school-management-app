@@ -6,6 +6,8 @@ import { CreateAtividadeDto } from 'src/atividade/dto/create-atividade.dto';
 import { DisciplinaService } from 'src/disciplina/disciplina.service';
 import { UsuarioService } from 'src/usuario/usuario.service';
 import { PessoaService } from 'src/pessoa/pessoa.service';
+import { MatriculaService } from 'src/matricula/matricula.service';
+import { Matricula } from 'src/matricula/entities/matricula.entity';
 
 const turma1 = {
   "nome": "Nome de Turma Simples",
@@ -38,6 +40,7 @@ async function bootstrap() {
   const disciplinaService = app.get(DisciplinaService);
   const usuarioService = app.get(UsuarioService);
   const pessoaService = app.get(PessoaService);
+  const matricuaService = app.get(MatriculaService);
 
   await pessoaService.create({nome: "Cleiane Clementino", cpf: "77777777777"})
   await pessoaService.create({nome: "Alvo Dumbledore", cpf: "99999999999"})
@@ -70,7 +73,10 @@ async function bootstrap() {
   await atividadeService.create(atividade3);
   await atividadeService.create(atividade4);
 
-
+  await matricuaService.create({turmaId:1, usuarioId: 3})
+  await matricuaService.create({turmaId:1, usuarioId: 6})
+  await matricuaService.create({turmaId:2, usuarioId: 3})
+  await matricuaService.create({turmaId:3, usuarioId: 6})
 
   await app.close();
 }
