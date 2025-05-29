@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu'; 
 import { AuthService } from '../../../modules/auth/services/auth';
 
 @Component({
@@ -12,7 +13,8 @@ import { AuthService } from '../../../modules/auth/services/auth';
     CommonModule,
     RouterLink,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
   ],
   templateUrl: './layout.component.html',
 })

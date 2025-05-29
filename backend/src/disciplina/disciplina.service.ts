@@ -19,14 +19,14 @@ export class DisciplinaService {
 
   async findAll(): Promise<Disciplina[]> {
     return await this.disciplinaRepository.find({
-      relations: ['turma'], // carrega as turmas associadas
+      relations: ['turma', 'curso'],
     });
   }
 
   async findOne(id: number): Promise<Disciplina> {
     const disciplina = await this.disciplinaRepository.findOne({
       where: { id },
-      relations: ['turma'], // opcional
+      relations: ['turma', 'curso'],
     });
 
     if (!disciplina) {
@@ -70,4 +70,15 @@ export class DisciplinaService {
       .where('disciplina.nome ILIKE :nome', { nome: `%${nome}%` })
       .getMany();
   }
+
+  async findByCursoId(cursoId: number): Promise<Disciplina[]> {
+    return await this.disciplinaRepository
+      .createQueryBuilder('disciplina')
+      .leftJoinAndSelect('disciplina.turma', 'turma')
+      .leftJoinAndSelect('disciplina.curso', 'curso')
+      .where('curso.id = :cursoId', { cursoId })
+      .getMany();
+  }
+
 }
+
