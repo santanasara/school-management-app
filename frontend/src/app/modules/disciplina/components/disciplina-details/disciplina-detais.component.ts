@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { DisciplinaService } from '../../services/disciplina.service'; 
 import { Disciplina } from '../../models/disciplina.model'; 
 
 @Component({
   selector: 'app-disciplina-details',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatDividerModule],
   templateUrl: './disciplina-details.component.html',
 })
 export class DisciplinaDetailsComponent implements OnInit {
