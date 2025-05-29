@@ -1,3 +1,4 @@
+import { Curso } from './../../../curso/models/curso.model';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -9,22 +10,32 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DisciplinaService } from '../../services/disciplina.service'; 
 import { Disciplina } from '../../models/disciplina.model'; 
+import { CursoService } from '../../../curso/services/curso.service';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-disciplina-list',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatButtonModule, MatInputModule, MatIconModule, FormsModule, RouterModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatInputModule, MatIconModule, MatSelectModule, FormsModule, RouterModule],
   templateUrl: './disciplina-list.component.html',
 })
 export class DisciplinaListComponent implements OnInit {
   private disciplinaService = inject(DisciplinaService);
+  private cursoService = inject(CursoService)
 
   displayedColumns = ['id', 'nome', 'descricao', 'curso', 'acoes'];
   disciplinas: Disciplina[] = [];
+  cursos: Curso[] = []
   filtroNome = '';
+  filtroCurso: number | null = null;
 
   ngOnInit(): void {
     this.carregarDisciplinas();
+    this.carregarCursos();
+  }
+
+  carregarCursos(): void {
+    this.cursoService.getCursosAtivos().subscribe((dados) => (this.cursos = dados));
   }
 
   carregarDisciplinas(): void {
@@ -38,6 +49,18 @@ export class DisciplinaListComponent implements OnInit {
       this.disciplinaService.getByNome(nome).subscribe((dados) => (this.disciplinas = dados));
     }
   }
+
+
+  buscarDisciplinas(): void {
+    if (!this.filtroNome.trim() && (this.filtroCurso === null || this.filtroCurso === 0)) {
+      this.carregarDisciplinas();
+    } else if (this.filtroCurso !== null && this.filtroCurso !== 0) {
+      this.disciplinaService.getByCurso(this.filtroCurso).subscribe(dados => {
+        this.disciplinas = dados;
+      });
+    }
+  }
+
 
   onNomeFiltroChange(value: string): void {
     this.filtroNome = value;

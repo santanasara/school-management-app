@@ -2,7 +2,7 @@
 <div class="flex justify-between items-center mb-6">
   <button
     mat-raised-button
-    color="accent"
+    color="primary"
     [routerLink]="['/disciplinas', 'novo']"
     class="flex items-center gap-2"
   >
@@ -23,6 +23,17 @@
         placeholder="Digite o nome"
       />
   </mat-form-field>
+
+  <mat-form-field class="min-w-[200px] max-w-[250px] flex-1" appearance="fill">
+    <mat-label>Filtrar por curso</mat-label>
+    <mat-select [(ngModel)]="filtroCurso" (selectionChange)="buscarDisciplinas()">
+      <mat-option [value]="null">Todos os cursos</mat-option>
+      <mat-option *ngFor="let curso of cursos" [value]="curso.id">
+        {{ curso.nome }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
 
   <button class="bg-white" mat-stroked-button (click)="carregarDisciplinas()">
     Mostrar Todos
