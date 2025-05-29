@@ -23,7 +23,7 @@ export class Atividade {
   @Column({ type: 'date', name: 'data_final' })
   dataFinal: Date;
 
-  @ManyToOne(() => Turma, { nullable: false, })
+  @ManyToOne(() => Turma, { nullable: false, onDelete: 'CASCADE' })
   turma: Turma;
 
 }

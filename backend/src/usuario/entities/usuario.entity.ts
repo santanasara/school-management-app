@@ -9,27 +9,27 @@ import {
   OneToOne,
 } from 'typeorm';
 
-type Perfil = 'prof' | 'aluno' | 'admin';
+export type Perfil = 'prof' | 'aluno' | 'admin';
 
 @Entity('usuario')
 export class Usuario {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Pessoa, {eager:true})
+  @Column({ name: 'pessoa_id' })  
+  pessoa_id: number;
+
+  @OneToOne(() => Pessoa)
   @JoinColumn({ name: 'pessoa_id' })
   pessoa: Pessoa;
 
-  @Column()  
-  pessoa_id: number;
-
-  @Column({select:false}) 
+  @Column() 
   email: string;
 
-  @Column({select:false}) 
+  @Column() 
   senha: string;
 
-  @Column({select:false})
+  @Column()
   login: string;
 
   @Column() 

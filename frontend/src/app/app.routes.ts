@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-
   // Rotas para a funcionalidade de Matrícula
   {
     path: 'matriculas',
@@ -32,42 +31,131 @@ export const routes: Routes = [
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   },
-  // Rotas para a funcionalidade de Cursos
+  // ROTAS DE CURSOS
   {
-    path: 'cursos', // Rota pai para todos os recursos de cursos
+    path: 'cursos',
     loadComponent: () =>
-      import('./modules/curso/components/curso-shell/curso-shell.component')
-        .then(m => m.CursoShellComponent),
+      import('./modules/curso/components/curso-shell/curso-shell.component').then(m => m.CursoShellComponent),
     children: [
       {
-        path: '', // Rota padrão para /cursos (lista de cursos)
+        path: '',
         loadComponent: () =>
-          import('./modules/curso/components/curso-list/curso-list.component')
-            .then(m => m.CursoListComponent)
+          import('./modules/curso/components/curso-list/curso-list.component').then(m => m.CursoListComponent)
       },
       {
-        path: 'novo', // Rota para /cursos/novo
+        path: 'novo',
         loadComponent: () =>
-          import('./modules/curso/components/curso-create/curso-create.component')
-            .then(m => m.CursoCreateComponent)
+          import('./modules/curso/components/curso-create/curso-create.component').then(m => m.CursoCreateComponent)
       },
       {
-        path: ':id', // Rota para /cursos/:id (detalhes de um curso específico)
+        path: ':id',
         loadComponent: () =>
-          import('./modules/curso/components/curso-details/curso-details.component')
-            .then(m => m.CursoDetailsComponent)
+          import('./modules/curso/components/curso-details/curso-details.component').then(m => m.CursoDetailsComponent)
       },
       {
-        path: 'editar/:id', // Rota para /cursos/editar/:id
+        path: 'editar/:id',
         loadComponent: () =>
-          import('./modules/curso/components/curso-edit/curso-edit.component')
-            .then(m => m.CursoEditComponent)
+          import('./modules/curso/components/curso-edit/curso-edit.component').then(m => m.CursoEditComponent)
       },
-      // Redireciona para a lista se a URL não for correspondida em 'cursos'
-      { path: '**', redirectTo: '', pathMatch: 'full' }
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
+      }
     ]
   },
 
-  // Rota curinga para qualquer URL não encontrada
-  { path: '**', redirectTo: '' }
+  // ROTAS DE DISCIPLINAS
+  {
+    path: 'disciplinas',
+    loadComponent: () =>
+      import('./modules/disciplina/components/disciplina-shell/disciplina-shell.component').then(m => m.DisciplinaShellComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./modules/disciplina/components/disciplina-list/disciplina-list.component').then(m => m.DisciplinaListComponent)
+      },
+      {
+        path: 'novo',
+        loadComponent: () =>
+          import('./modules/disciplina/components/disciplina-form/disciplina-form.component').then(m => m.DisciplinaFormComponent)
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./modules/disciplina/components/disciplina-details/disciplina-detais.component').then(m => m.DisciplinaDetailsComponent)
+      },
+      {
+        path: 'editar/:id',
+        loadComponent: () =>
+          import('./modules/disciplina/components/disciplina-form/disciplina-form.component').then(m => m.DisciplinaFormComponent)
+      },
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
+      }
+    ]
+  },
+
+  // ROTAS DE MATRÍCULAS
+  {
+    path: 'matriculas',
+    loadComponent: () =>
+      import('./modules/matricula/components/matricula-shell/matricula-shell.component').then(m => m.MatriculaShellComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./modules/matricula/components/matricula-list/matricula-list.component').then(m => m.MatriculaListComponent)
+      },
+      {
+        path: 'novo',
+        loadComponent: () =>
+          import('./modules/matricula/components/matricula-create/matricula-create.component').then(m => m.MatriculaCreateComponent)
+      },
+      // {
+      //   path: ':id',
+      //   loadComponent: () =>
+      //     import('./modules/matricula/components/matricula-details/matricula-details.component').then(m => m.MatriculaDetailsComponent)
+      // },
+      {
+        path: 'editar/:id',
+        loadComponent: () =>
+          import('./modules/matricula/components/matricula-create/matricula-create.component').then(m => m.MatriculaCreateComponent)
+      },
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full'
+      }
+    ]
+  },
+
+  {
+    path: 'turmas',
+    loadComponent: () =>
+      import('./modules/turma/turma.component')
+        .then(m => m.TurmaComponent),
+  },
+
+  {
+    path: 'turmas',
+    loadComponent: () =>
+      import('./modules/turma/turma.component')
+        .then(m => m.TurmaComponent),
+  },
+
+  // REDIRECIONAMENTO PADRÃO
+  {
+    path: '',
+    redirectTo: 'cursos',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'cursos',
+    pathMatch: 'full'
+  }
 ];

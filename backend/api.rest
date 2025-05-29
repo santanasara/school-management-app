@@ -51,7 +51,7 @@ content-type: application/json
 }
 
 ### REMOVER TURMA QUE EXISTE
-DELETE http://localhost:3000/turma/3
+DELETE http://localhost:3000/turma/8
 
 ### REMOVER TURMA QUE NÃO EXISTE
 DELETE http://localhost:3000/turma/485555
@@ -103,3 +103,19 @@ DELETE http://localhost:3000/atividade/3
 
 ### REMOVER ATIVIDADE QUE NÃO EXISTE
 DELETE http://localhost:3000/atividade/485555
+
+// ====================================== DISCIPLINA ====================================== //
+
+### LISTAR TODAS AS DISCIPLINAS
+http://localhost:3000/disciplina
+
+
+// ====================================== USUARIO ====================================== //
+### LISTAR TODOS OS USUÁRIOS
+http://localhost:3000/usuario
+
+
+### LISTAR TODOS OS PROFESSORES
+http://localhost:3000/usuario/professor
+
+

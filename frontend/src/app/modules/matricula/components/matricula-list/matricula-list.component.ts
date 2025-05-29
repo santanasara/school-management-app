@@ -12,7 +12,10 @@ import { MatTableModule } from '@angular/material/table';
 
 import { MatriculaService } from '../../services/matricula.service';
 import { Matricula } from '../../models/Matricula';
+<<<<<<< HEAD
 import { Turma } from '../../../turma/models/Turma';
+=======
+>>>>>>> 464fdbb23067315765804cdfa87c8a34a0f1b9c6
 import { TurmaService } from '../../../turma/services/turma.service';
 
 @Component({

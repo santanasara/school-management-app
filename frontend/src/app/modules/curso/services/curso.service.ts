@@ -1,9 +1,7 @@
-// src/app/modules/curso/services/curso.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Curso } from '../models/curso';
+import { Curso } from '../models/curso.model';
 import { environment } from '../../../../environments/environments'; 
 
 @Injectable({

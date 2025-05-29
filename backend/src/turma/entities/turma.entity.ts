@@ -8,13 +8,14 @@ import {
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Disciplina } from 'src/disciplina/entities/disciplina.entity';
 import { Matricula } from 'src/matricula/entities/matricula.entity';
+import { Atividade } from 'src/atividade/entities/atividade.entity';
 
 @Entity('turma')
 export class Turma {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   nome?: string;
 
   @Column()
@@ -37,4 +38,10 @@ export class Turma {
 
   @OneToMany(() => Matricula, (matricula) => matricula.usuario)
   matriculas: Matricula[];
+
+  @OneToMany(() => Atividade, atividade => atividade.turma, {
+    cascade: true,
+    orphanedRowAction: 'delete'
+  })
+  atividades: Atividade[];
 }

@@ -3,7 +3,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   OneToMany,
 } from 'typeorm';
 
@@ -14,6 +13,9 @@ export class Disciplina {
 
   @Column()
   nome: string;
+
+  @Column({ nullable: true })
+  descricao?: string;
 
   @OneToMany(() => Turma, (turma) => turma.disciplina)
   turma: Turma[];

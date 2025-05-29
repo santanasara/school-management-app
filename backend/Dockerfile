@@ -4,12 +4,10 @@ WORKDIR /app
 
 COPY package.json yarn.lock ./
 
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
-COPY . .
-
-RUN yarn build
+COPY tsconfig*.json nest-cli.json ./
 
 EXPOSE 3000
 
-CMD ["yarn", "start:prod"]
+CMD ["yarn", "start:dev"]
