@@ -28,7 +28,10 @@ export class MatriculaService {
     }
   
     async findOne(id: number): Promise<Matricula> {
-      const matricula = await this.matriculaRepository.findOneBy({ id });
+      const matricula = await this.matriculaRepository.findOne({ 
+        where: { id },
+        relations: ['usuario', 'usuario.pessoa', 'notas'],
+      });
       if (!matricula) throw new NotFoundException('Matricula não encontrado');
       return matricula;
     }

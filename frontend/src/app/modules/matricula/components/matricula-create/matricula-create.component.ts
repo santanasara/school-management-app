@@ -9,8 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { MatriculaService } from '../../services/matricula.service';
 import { SituacaoMatricula } from '../../models/SituacaoMatricula';
-import { Turma } from '../../../turma/models/Turma';
 import { TurmaService } from '../../../turma/services/turma.service';
+import { Turma } from '../../../turma/models/turma.model';
 
 @Component({
   selector: 'app-matricula-create',

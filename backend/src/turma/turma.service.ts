@@ -62,7 +62,7 @@ export class TurmaService {
 
     const turma = await this.turmaRepository.findOne({
       where: { id },
-      relations: ['disciplina', 'instrutor', 'matriculas'],
+      relations: ['disciplina', 'instrutor', 'matriculas','matriculas.notas', 'matriculas.usuario', 'matriculas.usuario.pessoa'],
     });
     if (!turma) {
       throw new NotFoundException('Turma não encontrada');

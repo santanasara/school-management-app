@@ -36,7 +36,7 @@ export class Turma {
   @ManyToOne(() => Disciplina, { nullable: true, eager: false })
   disciplina?: Disciplina | null;
 
-  @OneToMany(() => Matricula, (matricula) => matricula.usuario)
+  @OneToMany(() => Matricula, (matricula) => matricula.turma)
   matriculas: Matricula[];
 
   @OneToMany(() => Atividade, atividade => atividade.turma, {

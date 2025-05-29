@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-matricula-shell',
+  selector: 'app-notas-shell',
   standalone: true,
   imports: [
     CommonModule,
@@ -18,7 +18,7 @@ import { RouterOutlet } from '@angular/router';
             <span class="mx-1">/</span>
           </li>
           <li>
-            <a href="/matriculas" class="hover:text-indigo-600 transition">Matrículas</a>
+            <a href="/nota" class="hover:text-indigo-600 transition">Notas</a>
             <span class="mx-1">/</span>
           </li>
           <li class="text-indigo-600 font-medium">Gerenciar</li>
@@ -28,5 +28,5 @@ import { RouterOutlet } from '@angular/router';
     </div>
   `
 })
-export class MatriculaShellComponent {
+export class NotaShellComponent {
 }

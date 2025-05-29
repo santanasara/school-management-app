@@ -1,6 +1,39 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  // Rotas para a funcionalidade de Notas
+  {
+    path: 'notas',
+    loadComponent: () =>
+      import('./modules/nota/components/nota-shell/nota-shell.component')
+        .then(m => m.NotaShellComponent),
+    children: [
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./modules/nota/components/nota-list/nota-list.component')
+            .then(m => m.NotaListComponent)
+      },
+      {
+        path: 'novo/:id',
+        loadComponent: () =>
+          import('./modules/nota/components/nota-create/nota-create.component')
+        .then(m => m.NotaCreateComponent)
+      },
+      /*
+      
+      {
+        path: ':id', 
+        loadComponent: () =>
+          import('./modules/matricula/components/matricula-details/matricula-details.component')
+        .then(m => m.MatriculaDetailsComponent)
+        },
+        */
+
+      
+      { path: '**', redirectTo: '', pathMatch: 'full' }
+    ]
+  },
   // Rotas para a funcionalidade de Matrícula
   {
     path: 'matriculas',

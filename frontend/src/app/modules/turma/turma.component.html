@@ -97,6 +97,7 @@
       <mat-cell *matCellDef="let turma">
         <button mat-button color="primary" (click)="iniciarEdicao(turma)">Editar</button>
         <button mat-button color="warn" (click)="excluir(turma)">Excluir</button>
+        <button mat-button color="primary" [routerLink]="['/notas', turma.id]">Notas</button>
       </mat-cell>
     </ng-container>
 

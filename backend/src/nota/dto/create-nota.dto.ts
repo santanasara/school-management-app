@@ -1,1 +1,5 @@
-export class CreateNotaDto {}
+export class CreateNotaDto {
+
+    data_lancamento: Date;
+
+}

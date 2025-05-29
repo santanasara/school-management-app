@@ -40,7 +40,6 @@ export class DisciplinaFormComponent implements OnInit {
   }
 
   salvar(): void {
-    console.log(this.editando)
     if (this.editando && this.disciplina.id) {
       this.disciplinaService.update(this.disciplina.id, this.disciplina).subscribe(() => this.router.navigate(['/disciplinas']));
     } else {
