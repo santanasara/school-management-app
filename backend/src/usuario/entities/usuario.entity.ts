@@ -19,14 +19,14 @@ export class Usuario {
   @Column({ name: 'pessoa_id' })  
   pessoa_id: number;
 
-  @OneToOne(() => Pessoa)
-  @JoinColumn({ name: 'pessoa_id' })
+  @OneToOne(() => Pessoa, {eager: true})
+  @JoinColumn({ name: 'pessoa_id'} )
   pessoa: Pessoa;
 
   @Column() 
   email: string;
 
-  @Column() 
+  @Column({select: false}) 
   senha: string;
 
   @Column()

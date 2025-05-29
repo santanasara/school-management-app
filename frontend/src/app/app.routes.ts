@@ -117,20 +117,23 @@ export const routes: Routes = [
       }
     ]
   },
-
   {
     canActivate: [AuthGuard],
     path: 'turmas',
-    loadComponent: () =>
-      import('./modules/turma/turma.component')
-        .then(m => m.TurmaComponent),
-  },
-
-  {
-    path: 'turmas',
-    loadComponent: () =>
-      import('./modules/turma/turma.component')
-        .then(m => m.TurmaComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./modules/turma/turma.component')
+            .then(m => m.TurmaComponent),
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./modules/turma/turma-detalhe/turma-detalhe.component')
+            .then(m => m.TurmaDetalheComponent),
+      },
+    ]
   },
 
   // REDIRECIONAMENTO PADRÃO

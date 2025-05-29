@@ -13,13 +13,27 @@ export class MatriculaService {
   constructor(
       @InjectRepository(Matricula)
       private matriculaRepository: Repository<Matricula>,
+      @InjectRepository(Turma)
+      private readonly turmaRepository: Repository<Turma>,
+      @InjectRepository(Usuario)
+      private readonly usuarioRepository: Repository<Usuario>,
     ) {}
   
     async create(createMatriculaDto: CreateMatriculaDto): Promise<Matricula> {
-      let matricula = this.matriculaRepository.create(createMatriculaDto);
 
-      matricula.usuario = { id: 2 } as Usuario;
-      
+      const turma = await this.turmaRepository.findOneBy({ id: createMatriculaDto.turmaId });
+      if (!turma) {
+        throw new NotFoundException('Turma não encontrada');
+      }
+
+      const usuario = await this.usuarioRepository.findOneBy({ id: createMatriculaDto.usuarioId });
+      if (!usuario) {
+        throw new NotFoundException('Usuário não encontrado');
+      }
+      const dataMatricula = new Date()
+
+      const matricula = this.matriculaRepository.create({turma,usuario,dataMatricula});
+
       return this.matriculaRepository.save(matricula);
     }
   
@@ -64,5 +78,11 @@ export class MatriculaService {
     async remove(id: number): Promise<void> {
       const matricula = await this.findOne(id);
       await this.matriculaRepository.remove(matricula);
+    }
+
+    async listarMatriculasPorTurma(id:number){
+      return this.matriculaRepository.find({
+        where: { turma: { id:id } },
+      });
     }
 }
