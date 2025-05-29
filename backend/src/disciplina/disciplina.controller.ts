@@ -1,10 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { DisciplinaService } from './disciplina.service';
 import { CreateDisciplinaDto } from './dto/create-disciplina.dto';
 import { UpdateDisciplinaDto } from './dto/update-disciplina.dto';
 import { FilterByLocalDto } from './dto/filter-by-local.dto';
 import { FilterByInstrutorDto } from './dto/filter-by-instrutor.dto';
 import { FilterByNomeDto } from './dto/filter-by-nome.dto';
+import { FilterByCursoIdDto } from './dto/filter-by-curso-id.dto';
 
 @Controller('disciplinas')
 export class DisciplinaController {
@@ -18,6 +28,11 @@ export class DisciplinaController {
   @Get()
   findAll() {
     return this.disciplinaService.findAll();
+  }
+
+  @Get('por-curso')
+  findByCurso(@Query() query: FilterByCursoIdDto) {
+    return this.disciplinaService.findByCursoId(query.cursoId);
   }
 
   @Get('por-local')
@@ -41,7 +56,10 @@ export class DisciplinaController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDisciplinaDto: UpdateDisciplinaDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateDisciplinaDto: UpdateDisciplinaDto,
+  ) {
     return this.disciplinaService.update(+id, updateDisciplinaDto);
   }
 
@@ -49,5 +67,4 @@ export class DisciplinaController {
   remove(@Param('id') id: string) {
     return this.disciplinaService.remove(+id);
   }
-
 }

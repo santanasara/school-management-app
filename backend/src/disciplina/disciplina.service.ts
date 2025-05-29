@@ -70,4 +70,15 @@ export class DisciplinaService {
       .where('disciplina.nome ILIKE :nome', { nome: `%${nome}%` })
       .getMany();
   }
+
+  async findByCursoId(cursoId: number): Promise<Disciplina[]> {
+    return await this.disciplinaRepository
+      .createQueryBuilder('disciplina')
+      .leftJoinAndSelect('disciplina.turma', 'turma')
+      .leftJoinAndSelect('disciplina.curso', 'curso')
+      .where('curso.id = :cursoId', { cursoId })
+      .getMany();
+  }
+
 }
+
