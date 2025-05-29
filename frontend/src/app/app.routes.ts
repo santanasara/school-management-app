@@ -22,6 +22,10 @@ export const routes: Routes = [
           import('./modules/curso/components/curso-list/curso-list.component').then(m => m.CursoListComponent)
       },
       {
+        canActivate: [AuthGuard],
+        data: {
+          role: ['admin', 'prof']
+        },
         path: 'novo',
         loadComponent: () =>
           import('./modules/curso/components/curso-create/curso-create.component').then(m => m.CursoCreateComponent)
@@ -32,6 +36,10 @@ export const routes: Routes = [
           import('./modules/curso/components/curso-details/curso-details.component').then(m => m.CursoDetailsComponent)
       },
       {
+        canActivate: [AuthGuard],
+        data: {
+          role: ['admin', 'prof']
+        },
         path: 'editar/:id',
         loadComponent: () =>
           import('./modules/curso/components/curso-edit/curso-edit.component').then(m => m.CursoEditComponent)
@@ -71,6 +79,10 @@ export const routes: Routes = [
           import('./modules/disciplina/components/disciplina-details/disciplina-detais.component').then(m => m.DisciplinaDetailsComponent)
       },
       {
+        canActivate: [AuthGuard],
+        data: {
+          role: ['admin', 'prof']
+        },
         path: 'editar/:id',
         loadComponent: () =>
           import('./modules/disciplina/components/disciplina-form/disciplina-form.component').then(m => m.DisciplinaFormComponent)
@@ -118,37 +130,6 @@ export const routes: Routes = [
     ]
   },
 
-  // {
-
-  //   canActivate: [AuthGuard],
-  //   path: 'turmas',
-  //   loadComponent: () =>
-  //     import('./modules/material/components/material-shell/material-shell.component').then(m => m.MaterialShellComponent),
-  //   children: [
-  //     {
-  //       path: '',
-  //       loadComponent: () =>
-  //         import('./modules/material/components/material-list/material-list.component').then(m => m.MaterialListComponent)
-  //     },
-
-  //     {
-  //       path: 'novo',
-  //       loadComponent: () =>
-  //         import('./modules/material/components/material-form/material-form.component').then(m => m.MaterialFormComponent)
-  //     },
-  //     {
-  //       path: 'editar/:id',
-  //       loadComponent: () =>
-  //         import('./modules/material/components/material-form/material-form.component').then(m => m.MaterialFormComponent)
-  //     },
-  //     {
-  //       path: '**',
-  //       redirectTo: '',
-  //       pathMatch: 'full'
-  //     },
-  //   ]
-  // },
-
   {
     canActivate: [AuthGuard],
     path: 'turmas',
@@ -156,16 +137,4 @@ export const routes: Routes = [
       import('./modules/turma/turma.component')
         .then(m => m.TurmaComponent),
   },
-
-  // REDIRECIONAMENTO PADRÃO
-  {
-    path: '',
-    redirectTo: 'cursos',
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    redirectTo: 'cursos',
-    pathMatch: 'full'
-  }
 ];

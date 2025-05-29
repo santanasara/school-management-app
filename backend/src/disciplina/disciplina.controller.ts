@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { DisciplinaService } from './disciplina.service';
 import { CreateDisciplinaDto } from './dto/create-disciplina.dto';
@@ -15,11 +16,16 @@ import { FilterByLocalDto } from './dto/filter-by-local.dto';
 import { FilterByInstrutorDto } from './dto/filter-by-instrutor.dto';
 import { FilterByNomeDto } from './dto/filter-by-nome.dto';
 import { FilterByCursoIdDto } from './dto/filter-by-curso-id.dto';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('disciplinas')
 export class DisciplinaController {
   constructor(private readonly disciplinaService: DisciplinaService) {}
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'prof')
   @Post()
   create(@Body() createDisciplinaDto: CreateDisciplinaDto) {
     return this.disciplinaService.create(createDisciplinaDto);
@@ -55,6 +61,8 @@ export class DisciplinaController {
     return this.disciplinaService.findOne(+id);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'prof')
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -63,6 +71,8 @@ export class DisciplinaController {
     return this.disciplinaService.update(+id, updateDisciplinaDto);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.disciplinaService.remove(+id);
