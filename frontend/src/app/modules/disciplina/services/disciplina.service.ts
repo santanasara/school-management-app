@@ -45,4 +45,11 @@ export class DisciplinaService {
       params: { nome },
     });
   }
+
+  getByCurso(cursoId: number): Observable<Disciplina[]>{
+    return this.http.get<Disciplina[]>(`${this.apiUrl}/por-curso`, {
+      params: { cursoId }
+    });
+  };
+
 }

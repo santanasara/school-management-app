@@ -1,0 +1,52 @@
+<mat-card class="max-w-4xl mx-auto p-6">
+  <h2 class="text-2xl mb-6">{{ isEditMode ? 'Editar Material' : 'Novo Material' }}</h2>
+
+  <form (ngSubmit)="onSubmit()" class="flex flex-col gap-6 w-full">
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="material.titulo" name="titulo" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Tipo</mat-label>
+      <mat-select [(ngModel)]="material.tipo" name="tipo" required>
+        <mat-option *ngFor="let tipo of tipoMaterialOptions" [value]="tipo">
+          {{ tipo }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Link do arquivo</mat-label>
+      <input matInput [(ngModel)]="material.link_arquivo" name="link_arquivo" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Disciplina</mat-label>
+        <mat-select [(ngModel)]="material.disciplina" name="disciplina">
+            <ng-container *ngIf="disciplinas.length > 0; else semDisciplinasOption">
+            <mat-option *ngFor="let d of disciplinas" [value]="d.id">
+                {{ d.nome }}
+            </mat-option>
+            </ng-container>
+            <!-- Se não houver disciplinas -->
+            <ng-template #semDisciplinasOption>
+            <mat-option disabled>
+                Nenhuma disciplina cadastrada
+            </mat-option>
+            </ng-template>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="flex justify-end gap-4 mt-4">
+      <button mat-stroked-button color="warn" type="button" (click)="cancelar()">
+        Cancelar
+      </button>
+      <button mat-flat-button color="primary" type="submit">
+        {{ isEditMode ? 'Atualizar' : 'Salvar' }}
+      </button>
+    </div>
+
+  </form>
+</mat-card>

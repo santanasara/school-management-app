@@ -22,6 +22,10 @@ export const routes: Routes = [
           import('./modules/curso/components/curso-list/curso-list.component').then(m => m.CursoListComponent)
       },
       {
+        canActivate: [AuthGuard],
+        data: {
+          role: ['admin', 'prof']
+        },
         path: 'novo',
         loadComponent: () =>
           import('./modules/curso/components/curso-create/curso-create.component').then(m => m.CursoCreateComponent)
@@ -32,6 +36,10 @@ export const routes: Routes = [
           import('./modules/curso/components/curso-details/curso-details.component').then(m => m.CursoDetailsComponent)
       },
       {
+        canActivate: [AuthGuard],
+        data: {
+          role: ['admin', 'prof']
+        },
         path: 'editar/:id',
         loadComponent: () =>
           import('./modules/curso/components/curso-edit/curso-edit.component').then(m => m.CursoEditComponent)
@@ -71,6 +79,10 @@ export const routes: Routes = [
           import('./modules/disciplina/components/disciplina-details/disciplina-detais.component').then(m => m.DisciplinaDetailsComponent)
       },
       {
+        canActivate: [AuthGuard],
+        data: {
+          role: ['admin', 'prof']
+        },
         path: 'editar/:id',
         loadComponent: () =>
           import('./modules/disciplina/components/disciplina-form/disciplina-form.component').then(m => m.DisciplinaFormComponent)
