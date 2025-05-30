@@ -8,7 +8,7 @@
       <mat-label>Turma</mat-label>
       <mat-select formControlName="turma">
         <mat-option *ngFor="let turma of turmas" [value]="turma">
-          {{ turma.nome }}
+          {{ getNomeTurma(turma) }}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="matriculaForm.get('turma')?.invalid && matriculaForm.get('turma')?.touched">

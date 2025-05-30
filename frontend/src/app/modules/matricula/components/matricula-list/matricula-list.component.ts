@@ -12,6 +12,9 @@ import { MatTableModule } from '@angular/material/table';
 
 import { MatriculaService } from '../../services/matricula.service';
 import { Matricula } from '../../models/matricula.model';
+import { TurmaService } from '../../../turma/services/turma.service';
+import { Turma } from '../../../turma/models/turma.model';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-matricula-list',
@@ -25,25 +28,31 @@ import { Matricula } from '../../models/matricula.model';
     MatInputModule,
     MatCardModule,
     MatTableModule,
+    MatSelectModule,
   ],
   templateUrl: './matricula-list.component.html',
 })
 export class MatriculaListComponent implements OnInit {
   
   matriculas: Matricula[] = [];
+  turmas: Turma[] = [];
   
   nomeFiltro: string = '';
+  turmaFiltro: Turma | null  = null;
   cargaMinFiltro: number | null = null;
 
-  displayedColumns: string[] = ['id', 'disciplina', 'horario', 'acoes'];
+  displayedColumns: string[] = ['id', 'nome', 'disciplina', 'horario', 'acoes'];
 
   constructor(
     private matriculaService: MatriculaService, 
     private router: Router,
+    private turmasService: TurmaService
   ) { }
 
   ngOnInit(): void {
+
     this.loadMatriculas();
+    this.loadTurmas();
   }
 
   loadMatriculas(): void {
@@ -52,6 +61,13 @@ export class MatriculaListComponent implements OnInit {
     });
   }
 
+  loadTurmas() : void {
+   
+    this.turmasService.getTurmas().subscribe(data => {
+      this.turmas = data;
+    });
+   
+  }
 
 
   carregarAtivos(): void {
@@ -89,6 +105,12 @@ export class MatriculaListComponent implements OnInit {
     this.buscarPorNome(value);
   }
 
+  onTurmaFiltroChange(event: MatSelectChange) {
+    this.matriculaService.getMatriculasPorTurma(event.value.id).subscribe(matriculas => {
+      this.matriculas = matriculas;
+    })
+  }
+
   onCargaFiltroChange(value: string): void {
     /*
     const num = Number(value);
@@ -109,6 +131,14 @@ export class MatriculaListComponent implements OnInit {
         this.loadMatriculas();
       });
     }
+  }
+
+  getNomeTurmaFromMatricula(matricula: Matricula) {
+    return matricula?.turma?.nome?matricula?.turma?.nome:matricula?.turma?.disciplina?.nome;
+  }
+
+  getNomeTurmaFromTurma(turma: Turma) {
+    return turma?.nome?turma?.nome:turma?.disciplina?.nome;
   }
   
 }

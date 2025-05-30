@@ -20,14 +20,14 @@ export class MatriculaService {
       private readonly usuarioRepository: Repository<Usuario>,
     ) {}
   
-    async create(createMatriculaDto: CreateMatriculaDto): Promise<Matricula> {
+    async create(createMatriculaDto: CreateMatriculaDto, user: any ): Promise<Matricula> {
 
       const turma = await this.turmaRepository.findOneBy({ id: createMatriculaDto.turmaId });
       if (!turma) {
         throw new NotFoundException('Turma não encontrada');
       }
 
-      const usuario = await this.usuarioRepository.findOneBy({ id: createMatriculaDto.usuarioId });
+      const usuario = await this.usuarioRepository.findOneBy({ id: user.userId  });
       if (!usuario) {
         throw new NotFoundException('Usuário não encontrado');
       }
@@ -49,6 +49,31 @@ export class MatriculaService {
     async findAll(): Promise<Matricula[]> {
       return this.matriculaRepository.find();
     }
+
+    async findPorInstrutor(id: number): Promise<Matricula[]> {
+        return this.matriculaRepository.find({
+          where: { turma: { instrutor: { id: id } } },
+          relations: ['usuario', 'usuario.pessoa', 'turma', 'turma.disciplina', 'notas'],
+        });
+
+    }
+
+    async findPorAluno(idAluno: number, idTurma?:number ): Promise<Matricula[]> {
+
+      const where: any = {
+        usuario: { id: idAluno },
+      };
+
+      if (idTurma) {
+        where.turma = { id: idTurma };
+      }
+
+        return this.matriculaRepository.find({
+          where,
+          relations: ['usuario', 'usuario.pessoa', 'turma', 'turma.disciplina', 'notas'],
+        }) 
+  
+    }
   
     async findOne(id: number): Promise<Matricula> {
       const matricula = await this.matriculaRepository.findOne({ 
@@ -63,13 +88,41 @@ export class MatriculaService {
       return this.matriculaRepository.find({ where: { situacaoMatricula: SituacaoMatricula.ATIVA } });
     }
   
-    async findByNome(nome: string): Promise<Matricula[]> {
+    async findByNome(nome: string, usuario: Usuario): Promise<Matricula[]> {
+
+      if (usuario.perfil == 'admin') {
+        return this.matriculaRepository.createQueryBuilder('matricula')
+          .leftJoinAndSelect('matricula.turma', 'turma')
+          .leftJoinAndSelect('turma.disciplina', 'disciplina')
+          .where("1 = 1")
+          .andWhere('(LOWER(disciplina.nome) LIKE LOWER(:nome) OR LOWER (turma.nome) LIKE LOWER(:nome))', { nome: `%${nome}%` }).getMany()
+      } else if (usuario.perfil == 'prof') {
+        //const matricula = await this.findByNomeProfessor(nome, usuario.id);
+        return [];
+      } else if (usuario.perfil == 'aluno') {
+        return (await this.findByNomeAluno(nome, usuario.id)) || [];
+      }
+
+      return [];
+
+    }
+
+    async findByNProfessor(nome: string, id: number): Promise<Matricula[]> {
       return this.matriculaRepository.createQueryBuilder('matricula')
         .leftJoinAndSelect('matricula.turma', 'turma')
         .leftJoinAndSelect('turma.disciplina', 'disciplina')
         .where("1 = 1")
-        .andWhere('(LOWER(disciplina.nome) LIKE LOWER(:nome) OR LOWER (turma.nome) LIKE LOWER(:nome))', { nome: `%${nome}%` }).getMany()
+        .andWhere('(LOWER(disciplina.nome) LIKE LOWER(:nome) OR LOWER (turma.nome) LIKE LOWER(:nome)) AND turma.instrutor.id == :id', { nome: `%${nome}%`, id: id }).getMany()
     }
+
+    async findByNomeAluno(nome: string, id: number): Promise<Matricula[]> {
+      return this.matriculaRepository.createQueryBuilder('matricula')
+        .leftJoinAndSelect('matricula.turma', 'turma')
+        .leftJoinAndSelect('turma.disciplina', 'disciplina')
+        .where("1 = 1")
+        .andWhere('(LOWER(disciplina.nome) LIKE LOWER(:nome) OR LOWER (turma.nome) LIKE LOWER(:nome)) AND usuario.id == :id', { nome: `%${nome}%`, id: id }).getMany()
+    }
+
   
     async findByCargaHorariaMinima(min: number): Promise<Matricula[]> {
       return this.matriculaRepository
@@ -102,13 +155,34 @@ export class MatriculaService {
       return matricula;
     }
     
-    async listarMatriculasPorTurma(id:number){
-      return this.matriculaRepository
+    async listarMatriculasPorTurma(id:number, idInstrutor?: number): Promise<Matricula[]> {
+
+      const qb = this.matriculaRepository
         .createQueryBuilder('matricula')
-        .leftJoin('matricula.turma', 'turma')
+        .leftJoinAndSelect('matricula.turma', 'turma')
         .leftJoinAndSelect('matricula.usuario', 'usuario')
         .leftJoinAndSelect('usuario.pessoa', 'pessoa')
-        .where('turma.id = :id', { id })
-      .getMany();
+        .leftJoinAndSelect('turma.instrutor', 'instrutor')
+        .where("1 = 1")
+        .andWhere('turma.id = :id', { id: id })
+
+        if (idInstrutor) {
+          qb.andWhere('instrutor.id = :instrutor', { instrutor: idInstrutor })
+        }
+      
+
+      return qb.getMany() 
     }
+
+    async findByUsuario(idUsuario: number): Promise<Matricula | null> {
+      const matricula = await this.matriculaRepository.createQueryBuilder('matricula')
+        .leftJoinAndSelect('matricula.turma', 'turma')
+        .leftJoinAndSelect('matricula.usuario', 'usuario')
+        .where("1 = 1")
+        .andWhere('usuario.id = :idUsuario', {idUsuario: idUsuario }).getOne();
+
+      return matricula;
+    }
+
+
 }

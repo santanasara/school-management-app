@@ -25,6 +25,15 @@
       />
   </mat-form-field>
 
+  <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Turma</mat-label>
+      <mat-select (selectionChange)="onTurmaFiltroChange($event)">
+        <mat-option *ngFor="let turma of turmas" [value]="turma">
+          {{ getNomeTurmaFromTurma(turma) }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
   <button class="bg-white" mat-stroked-button (click)="loadMatriculas()">
     Mostrar Todos
   </button>
@@ -47,9 +56,14 @@
       <td mat-cell *matCellDef="let matricula"> {{ matricula.id }} </td>
     </ng-container>
 
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef> Aluno </th>
+      <td mat-cell *matCellDef="let matricula"> {{ matricula?.usuario?.pessoa?.nome }} </td>
+    </ng-container>
+
     <ng-container matColumnDef="disciplina">
       <th mat-header-cell *matHeaderCellDef> Disciplina </th>
-      <td mat-cell *matCellDef="let matricula"> {{ matricula.turma.nome }} </td>
+      <td mat-cell *matCellDef="let matricula"> {{ getNomeTurmaFromMatricula(matricula) }} </td>
     </ng-container>
 
     <ng-container matColumnDef="horario">
@@ -72,7 +86,7 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['id', 'disciplina', 'horario', 'acoes']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['id', 'disciplina', 'horario', 'acoes'];"></tr>
+    <tr mat-header-row *matHeaderRowDef="['id', 'nome', 'disciplina', 'horario', 'acoes']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id','nome', 'disciplina', 'horario', 'acoes'];"></tr>
   </table>
 </ng-template>

@@ -33,6 +33,10 @@ export class MatriculaService {
     return this.http.get<Matricula[]>(`${this.apiUrl}/buscar-por-nome/${nome}`);
   }
 
+  getMatriculasPorTurma(id: number): Observable<Matricula[]> {
+    return this.http.get<Matricula[]>(`${this.apiUrl}/buscar-por-turma/${id}`);
+  }
+
   getMatriculaById(id: number): Observable<Matricula> {
     return this.http.get<Matricula>(`${this.apiUrl}/${id}`);
   }

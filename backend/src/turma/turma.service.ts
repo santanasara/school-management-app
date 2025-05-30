@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTurmaDto } from './dto/create-turma.dto';
 import { UpdateTurmaDto } from './dto/update-turma.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { Turma } from './entities/turma.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Disciplina } from 'src/disciplina/entities/disciplina.entity';
@@ -114,5 +114,28 @@ export class TurmaService {
 
   async listarMatriculas(id:number){
     return await this.matriculaService.listarMatriculasPorTurma(id)
+  }
+
+  async listarTurmasPorInstrutor(id: number) {
+    return this.turmaRepository.find({
+      where: { instrutor: { id } },
+      relations: ['disciplina', 'instrutor'],
+    });
+  }
+
+  async listarTurmasPorAluno(id: number) {
+    return this.turmaRepository.find({
+      where: { matriculas: { usuario: { id } } },
+      relations: ['disciplina', 'instrutor'],
+    });
+  }
+
+  async findAllTurmasDisponiveis() {
+    return this.turmaRepository.find({
+      where: {
+        dataInicial: MoreThan(new Date()),
+      },
+      relations: ['disciplina', 'instrutor'],
+    });
   }
 }

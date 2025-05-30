@@ -50,4 +50,9 @@ export class TurmaService {
     return this.http.get<Turma>(`${this.apiUrl}/${id}`)
   }
 
+  loadTurmasDisponiveis(): Observable<Turma[]> {
+    console.log('Carregando turmas disponíveis...');
+    return this.http.get<Turma[]>(this.apiUrl+'/turmas-disponiveis');
+  }
+
 }

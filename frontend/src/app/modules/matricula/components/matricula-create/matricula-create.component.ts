@@ -11,6 +11,7 @@ import { MatriculaService } from '../../services/matricula.service';
 import { SituacaoMatricula } from '../../models/SituacaoMatricula';
 import { TurmaService } from '../../../turma/services/turma.service';
 import { Turma } from '../../../turma/models/turma.model';
+import { Matricula } from '../../models/matricula.model';
 
 @Component({
   selector: 'app-matricula-create',
@@ -43,11 +44,10 @@ export class MatriculaCreateComponent implements OnInit {
   ngOnInit(): void {
     this.matriculaForm = this.fb.group({
       dataDatricula: [new Date(), Validators.required],
-      //usuario: Usuario;
       turma: [null, Validators.required],
       situacaoMatricula: [SituacaoMatricula.ATIVA, Validators.required],
     });
-    this.loadTurmas();
+    this.loadTurmasDisponiveis();
   }
 
   onSubmit(): void {
@@ -67,9 +67,13 @@ export class MatriculaCreateComponent implements OnInit {
     }
   }
 
-  loadTurmas(): void {
-    this.turmaService.getTurmas().subscribe(data => {
+  loadTurmasDisponiveis(): void {
+    this.turmaService.loadTurmasDisponiveis().subscribe(data => {
       this.turmas = data;
     });
+  }
+
+  getNomeTurma(turma: Turma) {
+    return turma?.nome?turma?.nome:turma?.disciplina?.nome;
   }
 }
