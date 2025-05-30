@@ -31,4 +31,9 @@ export class MatriculaController {
   remove(@Param('id') id: string) {
     return this.matriculaService.remove(+id);
   }
+
+  @Get('buscar-por-nome/:nome')
+  findByNome(@Param('nome') nome: string) {
+    return this.matriculaService.findByNome(nome);
+  }
 }

@@ -5,7 +5,9 @@ import { UpdateNotaDto } from './dto/update-nota.dto';
 
 @Controller('nota')
 export class NotaController {
-  constructor(private readonly notaService: NotaService) {}
+  constructor(
+    private readonly notaService: NotaService
+  ) {}
 
   @Post()
   create(@Body() createNotaDto: CreateNotaDto) {

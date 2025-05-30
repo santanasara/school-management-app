@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMatriculaDto } from './dto/create-matricula.dto';
 import { UpdateMatriculaDto } from './dto/update-matricula.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { SituacaoMatricula } from './entities/SituacaoMatricula';
 import { Turma } from 'src/turma/entities/turma.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
+import { isBefore } from 'date-fns';
 
 @Injectable()
 export class MatriculaService {
@@ -34,6 +35,14 @@ export class MatriculaService {
 
       const matricula = this.matriculaRepository.create({turma,usuario,dataMatricula});
 
+      if (!isBefore(new Date(), new Date(matricula.turma.dataInicial))) {
+        throw new BadRequestException('A tuma já iniciau, não é possível realizar a matrícula');
+      }
+
+      if (await this.findByTurmaUsuario(matricula.usuario.id, matricula.turma.id)) {
+        throw new BadRequestException('Vocjé já esta matriculado');
+      }
+
       return this.matriculaRepository.save(matricula);
     }
   
@@ -42,7 +51,10 @@ export class MatriculaService {
     }
   
     async findOne(id: number): Promise<Matricula> {
-      const matricula = await this.matriculaRepository.findOneBy({ id });
+      const matricula = await this.matriculaRepository.findOne({ 
+        where: { id },
+        relations: ['usuario', 'usuario.pessoa', 'notas'],
+      });
       if (!matricula) throw new NotFoundException('Matricula não encontrado');
       return matricula;
     }
@@ -56,7 +68,7 @@ export class MatriculaService {
         .leftJoinAndSelect('matricula.turma', 'turma')
         .leftJoinAndSelect('turma.disciplina', 'disciplina')
         .where("1 = 1")
-        .andWhere('LOWER(disciplina.nome) LIKE %LOWER(:nome)%', { nome: `%${nome}%` }).getMany()
+        .andWhere('(LOWER(disciplina.nome) LIKE LOWER(:nome) OR LOWER (turma.nome) LIKE LOWER(:nome))', { nome: `%${nome}%` }).getMany()
     }
   
     async findByCargaHorariaMinima(min: number): Promise<Matricula[]> {
@@ -80,6 +92,16 @@ export class MatriculaService {
       await this.matriculaRepository.remove(matricula);
     }
 
+    async findByTurmaUsuario(idUsuario: number, idTUrma: number): Promise<Matricula | null> {
+      const matricula = await this.matriculaRepository.createQueryBuilder('matricula')
+        .leftJoinAndSelect('matricula.turma', 'turma')
+        .leftJoinAndSelect('matricula.usuario', 'usuario')
+        .where("1 = 1")
+        .andWhere('turma.id = :idTUrma AND usuario.id = :idUsuario', { idTUrma: idTUrma, idUsuario: idUsuario }).getOne();
+
+      return matricula;
+    }
+    
     async listarMatriculasPorTurma(id:number){
       return this.matriculaRepository
         .createQueryBuilder('matricula')

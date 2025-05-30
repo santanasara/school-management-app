@@ -13,8 +13,8 @@ const turma1 = {
   "nome": "Nome de Turma Simples",
   "local": "EAD",
   "horario": "24T12",
-  "dataInicial": "2025-05-12",
-  "dataFinal": "2025-06-12",
+  "dataInicial": "2025-06-12",
+  "dataFinal": "2025-07-12",
   // "instrutorId": 1,
   // "disciplinaId": 1
 }
@@ -23,8 +23,8 @@ const turma2 = {...turma1, nome: undefined ,}
 const atividade1 = {
   "titulo": "Título da atividade",
   "descricao": "Descrição da atividade",
-  "dataInicial": "2025-05-12",
-  "dataFinal": "2025-06-12",
+  "dataInicial": "2025-06-12",
+  "dataFinal": "2025-07-12",
   "turmaId": 1
 }
 
@@ -48,6 +48,9 @@ async function bootstrap() {
   await pessoaService.create({nome: "Luna Lovegood", cpf: "66666666666"})
   await pessoaService.create({nome: "Kovthe", cpf: "55555555555"})
   await pessoaService.create({nome: "Nynaeve", cpf: "44444444444"})
+  await pessoaService.create({nome: "Jerffeson Aluno", cpf: "11111111111"})
+  await pessoaService.create({nome: "Jerffeson Prof", cpf: "22222222222"})
+  await pessoaService.create({nome: "Jerffeson Admin", cpf: "33333333333"})
 
   await usuarioService.create({email: "clei.bondade@gmail.com", "login": "cleiane", "senha": "123456", "perfil": "admin", "pessoaId":1})
   await usuarioService.create({email: "alvoteste.bondade@gmail.com", "login": "juliana", "senha": "123456", "perfil": "prof", "pessoaId":2})
@@ -55,7 +58,10 @@ async function bootstrap() {
   await usuarioService.create({email: "lunateste.bondade@gmail.com", "login": "luna", "senha": "123456", "perfil": "admin", "pessoaId":4})
   await usuarioService.create({email: "kovtheteste.bondade@gmail.com", "login": "kovthe", "senha": "123456", "perfil": "prof", "pessoaId":5})
   await usuarioService.create({email: "nynaeveteste.bondade@gmail.com", "login": "nynaeve", "senha": "123456", "perfil": "aluno", "pessoaId":6})
-
+  await usuarioService.create({email: "jerff.aluno@gmail.com", "login": "jerff.aluno", "senha": "123456", "perfil": "aluno", "pessoaId":7})
+  await usuarioService.create({email: "jerff.prof@gmail.com", "login": "jerff.prof", "senha": "123456", "perfil": "prof", "pessoaId":8})
+  await usuarioService.create({email: "jerff.admin@gmail.com", "login": "jerff.admin", "senha": "123456", "perfil": "admin", "pessoaId":9})
+  
   await disciplinaService.create({nome: "Disciplina 1 "})
   await disciplinaService.create({nome: "Disciplina 2 "})
   await disciplinaService.create({nome: "Disciplina 3 "})

@@ -46,4 +46,8 @@ export class TurmaService {
     return this.http.patch<any>(`${this.apiUrl}/${id}`, turma);
   }
 
+  finOne(id: number) {
+    return this.http.get<Turma>(`${this.apiUrl}/${id}`)
+  }
+
 }

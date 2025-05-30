@@ -18,7 +18,7 @@ import { RouterOutlet } from '@angular/router';
             <span class="mx-1">/</span>
           </li>
           <li>
-            <a href="/cursos" class="hover:text-indigo-600 transition">Matrículas</a>
+            <a href="/matriculas" class="hover:text-indigo-600 transition">Matrículas</a>
             <span class="mx-1">/</span>
           </li>
           <li class="text-indigo-600 font-medium">Gerenciar</li>

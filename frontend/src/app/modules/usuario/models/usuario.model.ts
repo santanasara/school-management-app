@@ -1,5 +1,5 @@
+import { Matricula } from '../../matricula/models/matricula.model';
 import { Pessoa } from '../../pessoa/models/pessoa.model'; 
-import { Matricula } from '../../matricula/models/matricula.model'; 
 
 export type Perfil = 'prof' | 'aluno' | 'admin';
 

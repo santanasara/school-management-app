@@ -12,6 +12,7 @@ import { TurmaService } from './services/turma.service';
 import { UsuarioService } from '../usuario/usuario.service';
 import { DisciplinaService } from '../disciplina/services/disciplina.service';
 import { Turma } from './models/turma.model';
+import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,7 +27,9 @@ import { Router } from '@angular/router';
     MatNativeDateModule,
     MatButtonModule,
     MatTableModule,
+    RouterLink
   ],
+  standalone: true,
   templateUrl: './turma.component.html',
   styleUrl: './turma.component.css'
 })

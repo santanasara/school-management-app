@@ -1,0 +1,30 @@
+<mat-card class="max-w-md mx-auto mt-8 p-6 shadow-lg">
+  <h3 class="text-2xl font-semibold mb-6">Cadastrar Novo Nota</h3>
+
+  <form [formGroup]="notaForm" (ngSubmit)="onSubmit()" class="space-y-6">
+
+    <p class="mb-2"><strong>Aluno:</strong> {{ matricula?.usuario?.pessoa?.nome }}</p>
+    <p class="mb-2"><strong>Turma ID:</strong> {{ matricula?.turma?.id }}</p>
+    <p class="mb-2"><strong>Turma:</strong> {{ getNomeTurma() }}</p>
+    <p class="mb-2"><strong>Horário:</strong> {{ matricula?.turma?.horario }}</p>
+    <p class="mb-4"><strong>Status:</strong> {{ matricula?.situacaoMatricula }}</p>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Nota</mat-label>
+      <input matInput type="text" formControlName="valor" />
+      <mat-error *ngIf="notaForm.get('valor')?.invalid && notaForm.get('valor')?.touched">
+        Nota é obrigatório.
+      </mat-error>
+    </mat-form-field>
+
+
+    <div class="flex justify-between">
+      <button mat-raised-button color="primary" type="submit" [disabled]="notaForm.invalid" class="flex-grow mr-2">
+        Cadastrar
+      </button>
+      <button mat-stroked-button color="warn" type="button" [routerLink]="['/notas']" class="flex-grow ml-2">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</mat-card>

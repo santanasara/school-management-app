@@ -8,7 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCard } from '@angular/material/card';
 import { MatriculaService } from '../../services/matricula.service';
-import { SituacaoMatricula } from '../../models/SituacaoMatricula';;
+import { SituacaoMatricula } from '../../models/SituacaoMatricula';
 import { TurmaService } from '../../../turma/services/turma.service';
 import { Turma } from '../../../turma/models/turma.model';
 
@@ -45,7 +45,6 @@ export class MatriculaCreateComponent implements OnInit {
       dataDatricula: [new Date(), Validators.required],
       //usuario: Usuario;
       turma: [null, Validators.required],
-      //notas: Nota[];
       situacaoMatricula: [SituacaoMatricula.ATIVA, Validators.required],
     });
     this.loadTurmas();
@@ -53,9 +52,15 @@ export class MatriculaCreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.matriculaForm.valid) {
-      this.matriculaService.createMatricula(this.matriculaForm.value).subscribe(() => {
-        console.log('Matricula criada com sucesso!');
-        this.router.navigate(['/matricula']);
+      this.matriculaService.createMatricula(this.matriculaForm.value).subscribe({
+        next: () => {
+          console.log('Matricula criada com sucesso!');
+          this.router.navigate(['/matriculas']);
+        },
+        error: (err) => {
+          console.error('Erro ao criar matrícula:', err.error.message);
+          window.alert(err.error.message);
+        }
       });
     } else {
       console.log('Formulário inválido.');

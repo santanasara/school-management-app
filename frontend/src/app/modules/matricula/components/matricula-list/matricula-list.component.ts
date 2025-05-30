@@ -11,8 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 
 import { MatriculaService } from '../../services/matricula.service';
-import { Matricula } from '../../models/Matricula';
-import { TurmaService } from '../../../turma/services/turma.service';
+import { Matricula } from '../../models/matricula.model';
 
 @Component({
   selector: 'app-matricula-list',
@@ -64,15 +63,13 @@ export class MatriculaListComponent implements OnInit {
   }
 
   buscarPorNome(nome: string): void {
-    /*
     if (!nome.trim()) {
-      this.loadCursos();
+      this.loadMatriculas();
       return;
     }
-    this.matriculaService.getCursosPorNome(nome).subscribe(data => {
-      this.cursos = data;
+    this.matriculaService.getMatriculasPorNome(nome).subscribe(data => {
+      this.matriculas = data;
     });
-    */
   }
 
   buscarPorCarga(min: number | null): void {
@@ -88,10 +85,8 @@ export class MatriculaListComponent implements OnInit {
   }
 
   onNomeFiltroChange(value: string): void {
-    /*
     this.nomeFiltro = value;
     this.buscarPorNome(value);
-    */
   }
 
   onCargaFiltroChange(value: string): void {
@@ -102,22 +97,18 @@ export class MatriculaListComponent implements OnInit {
     */
   }
 
-  editCurso(id: number | undefined): void {
-    /*
+  editMatricula(id: number | undefined): void {
     if (id !== undefined) {
-      this.router.navigate(['/cursos', 'editar', id]);
+      this.router.navigate(['/matriculas', 'editar', id]);
     }
-    */
   }
 
-  deleteCurso(id: number | undefined): void {
-    /*
+  deleteMatricula(id: number | undefined): void {
     if (id !== undefined && confirm('Tem certeza que deseja excluir este curso?')) {
-      this.matriculaService.deleteCurso(id).subscribe(() => {
-        this.loadCursos();
+      this.matriculaService.deleteMatricula(id).subscribe(() => {
+        this.loadMatriculas();
       });
     }
-    */
   }
   
 }
