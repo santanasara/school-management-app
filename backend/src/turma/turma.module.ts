@@ -6,9 +6,10 @@ import { Turma } from './entities/turma.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Disciplina } from 'src/disciplina/entities/disciplina.entity';
 import { AtividadeModule } from 'src/atividade/atividade.module';
+import { MatriculaModule } from 'src/matricula/matricula.module';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Turma, Usuario, Disciplina]), AtividadeModule],
+  imports:[TypeOrmModule.forFeature([Turma, Usuario, Disciplina]), AtividadeModule, MatriculaModule],
   controllers: [TurmaController],
   providers: [TurmaService],
 })

@@ -1,26 +1,48 @@
-<div class="flex h-screen">
+<div class="flex h-screen font-sans">
   <!-- Sidebar -->
   <aside class="w-64 bg-blue-900 text-white flex flex-col shadow-md">
-    <div class="p-4 text-xl font-bold border-b border-blue-700">
-      Menu
+    <div class="p-4 text-3x1 font-bold border-b border-blue-700">
+      School Management App
     </div>
     <nav class="flex-1 p-4 space-y-2">
+
       <a routerLink="/dashboard" class="block py-2 px-3 rounded hover:bg-blue-800">Home</a>
+      <a routerLink="/pessoas" class="block py-2 px-2 rounded hover:bg-blue-800">Pessoas</a>
       <a routerLink="/cursos" class="block py-2 px-3 rounded hover:bg-blue-800">Cursos</a>
       <a routerLink="/disciplinas" class="block py-2 px-3 rounded hover:bg-blue-800">Disciplinas</a>
       <a routerLink="/matriculas" class="block py-2 px-3 rounded hover:bg-blue-800">Matrículas</a>
       <a routerLink="/turmas" class="block py-2 px-3 rounded hover:bg-blue-800">Turmas</a>
+      <a (click)="logout()" class="block py-2 px-3 rounded hover:bg-blue-800 cursor-pointer">Sair</a>
     </nav>
   </aside>
 
   <!-- Main Content -->
   <div class="flex-1 flex flex-col bg-blue-50">
-    <mat-toolbar class="!bg-blue-700 !text-white h-16 shadow-md">
-      <span class="text-xl font-semibold">School Management App</span>
+    <mat-toolbar class="!bg-blue-700 !text-white h-16 shadow-md justify-between">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Menu do usuário"
+        class="text-white cursor-pointer size-8"
+      >
+        <mat-icon>account_circle</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/perfil">
+          <mat-icon>person</mat-icon>
+          <span>Perfil</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>logout</mat-icon>
+          <span>Sair</span>
+        </button>
+      </mat-menu>
     </mat-toolbar>
 
+
     <main class="p-6 flex-1 overflow-auto">
-      <router-outlet></router-outlet>
+      <ng-content></ng-content>
     </main>
   </div>
 </div>

@@ -50,9 +50,11 @@ export class UsuarioService {
   }
 
   async findByLogin(login: string): Promise<Usuario | null> {
-    return await this.usuarioRepository.findOne({
-      where: { login },
-      relations: ['pessoa'],
-    });
+    return await this.usuarioRepository
+    .createQueryBuilder('usuario')
+    .addSelect('usuario.senha') // inclui o campo senha explicitamente
+    .leftJoinAndSelect('usuario.pessoa', 'pessoa')
+    .where('usuario.login = :login', { login })
+    .getOne();
   }
 }

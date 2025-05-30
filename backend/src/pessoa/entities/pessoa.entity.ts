@@ -17,5 +17,4 @@ export class Pessoa {
         orphanedRowAction: 'delete' 
     })
     usuario: Usuario;
-
 }

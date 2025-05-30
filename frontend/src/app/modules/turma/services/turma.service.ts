@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environments'; 
 import { Turma } from '../models/turma.model';
+import { Matricula } from '../../matricula/models/matricula.model';
+import { Atividade } from '../atividade/models/atividade.models';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,18 @@ export class TurmaService {
 
   getTurmas(): Observable<Turma[]> {
     return this.http.get<Turma[]>(this.apiUrl);
+  }
+
+  listarAtividades(id:number){
+    return this.http.get<Atividade[]>(`${this.apiUrl}/${id}/atividade`)
+  }
+
+  listarMatriculas(id:number){
+    return this.http.get<Matricula[]>(`${this.apiUrl}/${id}/matricula`)
+  }
+
+  getById(id: number): Observable<Partial<Turma>>{
+    return this.http.get<Partial<Turma>>(`${this.apiUrl}/${id}`)
   }
 
   listar(): Observable<Turma[]> {

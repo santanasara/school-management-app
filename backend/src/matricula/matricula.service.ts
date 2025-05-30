@@ -14,11 +14,27 @@ export class MatriculaService {
   constructor(
       @InjectRepository(Matricula)
       private matriculaRepository: Repository<Matricula>,
+      @InjectRepository(Turma)
+      private readonly turmaRepository: Repository<Turma>,
+      @InjectRepository(Usuario)
+      private readonly usuarioRepository: Repository<Usuario>,
     ) {}
   
     async create(createMatriculaDto: CreateMatriculaDto): Promise<Matricula> {
-      let matricula = this.matriculaRepository.create(createMatriculaDto);
-      matricula.usuario = { id: 2} as Usuario;
+
+      const turma = await this.turmaRepository.findOneBy({ id: createMatriculaDto.turmaId });
+      if (!turma) {
+        throw new NotFoundException('Turma não encontrada');
+      }
+
+      const usuario = await this.usuarioRepository.findOneBy({ id: createMatriculaDto.usuarioId });
+      if (!usuario) {
+        throw new NotFoundException('Usuário não encontrado');
+      }
+      const dataMatricula = new Date()
+
+      const matricula = this.matriculaRepository.create({turma,usuario,dataMatricula});
+
       if (!isBefore(new Date(), new Date(matricula.turma.dataInicial))) {
         throw new BadRequestException('A tuma já iniciau, não é possível realizar a matrícula');
       }
@@ -26,6 +42,7 @@ export class MatriculaService {
       if (await this.findByTurmaUsuario(matricula.usuario.id, matricula.turma.id)) {
         throw new BadRequestException('Vocjé já esta matriculado');
       }
+
       return this.matriculaRepository.save(matricula);
     }
   
@@ -83,5 +100,15 @@ export class MatriculaService {
         .andWhere('turma.id = :idTUrma AND usuario.id = :idUsuario', { idTUrma: idTUrma, idUsuario: idUsuario }).getOne();
 
       return matricula;
+    }
+    
+    async listarMatriculasPorTurma(id:number){
+      return this.matriculaRepository
+        .createQueryBuilder('matricula')
+        .leftJoin('matricula.turma', 'turma')
+        .leftJoinAndSelect('matricula.usuario', 'usuario')
+        .leftJoinAndSelect('usuario.pessoa', 'pessoa')
+        .where('turma.id = :id', { id })
+      .getMany();
     }
 }

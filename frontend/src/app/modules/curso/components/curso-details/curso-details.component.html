@@ -1,19 +1,43 @@
-<ng-container *ngIf="curso; else loading">
-  <mat-card class="max-w-md mx-auto mt-8 p-6 shadow-lg">
-    <h3 class="text-2xl font-semibold mb-4">Detalhes do Curso: {{ curso.nome }}</h3>
+<mat-card *ngIf="curso" class="max-w-4xl p-6 shadow-lg">
+  <mat-card-header>
+    <mat-card-title class="text-2xl font-semibold text-gray-800">
+      {{ curso.nome }}
+    </mat-card-title>
+  </mat-card-header>
 
-    <p class="mb-2"><strong>ID:</strong> {{ curso.id }}</p>
-    <p class="mb-2"><strong>Nome:</strong> {{ curso.nome }}</p>
-    <p class="mb-2"><strong>Descrição:</strong> {{ curso.descricao }}</p>
-    <p class="mb-2"><strong>Carga Horária:</strong> {{ curso.cargaHoraria }} horas</p>
-    <p class="mb-4"><strong>Status:</strong> {{ curso.status ? 'Ativo' : 'Inativo' }}</p>
+  <mat-card-content class="mt-4 space-y-3 text-gray-700">
+    <p>
+      <span class="font-medium">ID:</span>
+      {{ curso.id }}
+    </p>
+    <p>
+      <span class="font-medium">Descrição:</span>
+      {{ curso.descricao }}
+    </p>
+    <p>
+      <span class="font-medium">Carga Horária:</span>
+      {{ curso.cargaHoraria }} horas
+    </p>
+    <p>
+      <span class="font-medium">Status:</span>
+      <span [ngClass]="curso.status ? 'text-green-600' : 'text-red-600'">
+        {{ curso.status ? 'Ativo' : 'Inativo' }}
+      </span>
+    </p>
+  </mat-card-content>
 
-    <button mat-raised-button color="primary" [routerLink]="['/cursos']" class="w-full">
-      Voltar para a Lista
+  <mat-card-actions class="flex justify-end gap-4">
+    <button mat-stroked-button color="primary" routerLink="/cursos">
+      Voltar
     </button>
-  </mat-card>
-</ng-container>
+    <button mat-flat-button color="accent" [routerLink]="['/cursos/editar', curso.id]">
+      Editar
+    </button>
+  </mat-card-actions>
+</mat-card>
 
 <ng-template #loading>
-  <p class="text-center mt-8 text-gray-600">Carregando detalhes do curso...</p>
+  <div class="text-center mt-10 text-gray-500 text-lg">
+    Carregando detalhes do curso...
+  </div>
 </ng-template>

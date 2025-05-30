@@ -8,6 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { DisciplinaService } from '../../services/disciplina.service'; 
 import { Disciplina } from '../../models/disciplina.model'; 
 import { MatCard } from '@angular/material/card';
+import { Curso } from '../../../curso/models/curso.model';
+import { CursoService } from '../../../curso/services/curso.service';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-disciplina-form',
@@ -19,31 +22,45 @@ import { MatCard } from '@angular/material/card';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCard
+    MatCard,
+    MatSelectModule
   ],
   templateUrl: './disciplina-form.component.html',
 })
 export class DisciplinaFormComponent implements OnInit {
-  private disciplinaService = inject(DisciplinaService);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
+  disciplinaService = inject(DisciplinaService);
+  cursoService = inject(CursoService);
+  route = inject(ActivatedRoute);
+  router = inject(Router);
 
-  disciplina: Partial<Disciplina> = {};
+  disciplina: Partial<Disciplina> & { cursoId?: number } = {};
+  cursos: Curso[] = []; 
   editando = false;
 
   ngOnInit(): void {
+    this.cursoService.getCursosAtivos().subscribe(c => this.cursos = c);
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.editando = true;
-      this.disciplinaService.getById(+id).subscribe((d) => (this.disciplina = d));
+      this.disciplinaService.getById(+id).subscribe((d) => {
+        this.disciplina = {
+          ...d,
+          cursoId: d.curso?.id
+        };
+      });
     }
   }
 
   salvar(): void {
+    const payload = {
+      ...this.disciplina,
+      curso: { id: this.disciplina.cursoId }
+    };
+
     if (this.editando && this.disciplina.id) {
-      this.disciplinaService.update(this.disciplina.id, this.disciplina).subscribe(() => this.router.navigate(['/disciplinas']));
+      this.disciplinaService.update(this.disciplina.id, payload).subscribe(() => this.router.navigate(['/disciplinas']));
     } else {
-      this.disciplinaService.create(this.disciplina).subscribe(() => this.router.navigate(['/disciplinas']));
+      this.disciplinaService.create(payload).subscribe(() => this.router.navigate(['/disciplinas']));
     }
   }
 }

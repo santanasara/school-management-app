@@ -12,8 +12,8 @@ import { TurmaService } from './services/turma.service';
 import { UsuarioService } from '../usuario/usuario.service';
 import { DisciplinaService } from '../disciplina/services/disciplina.service';
 import { Turma } from './models/turma.model';
-import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-turma',
@@ -39,6 +39,7 @@ export class TurmaComponent {
   private service = inject(TurmaService);
   private disciplinaService = inject(DisciplinaService);
   private usuarioService = inject(UsuarioService);
+  private router = inject(Router);
 
   turmas$ = this.service.listar();
   disciplinas$ = this.disciplinaService.getAll();
@@ -86,6 +87,10 @@ export class TurmaComponent {
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  exibirTurma(turma: Turma){
+    this.router.navigate(['/turmas', turma.id]);
   }
 
   iniciarEdicao(turma: Turma) {

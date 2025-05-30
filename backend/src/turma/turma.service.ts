@@ -7,6 +7,7 @@ import { Turma } from './entities/turma.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Disciplina } from 'src/disciplina/entities/disciplina.entity';
 import { AtividadeService } from 'src/atividade/atividade.service';
+import { MatriculaService } from 'src/matricula/matricula.service';
 
 @Injectable()
 export class TurmaService {
@@ -22,6 +23,8 @@ export class TurmaService {
     private readonly disciplinaRepository: Repository<Disciplina>,
 
     private readonly atividadeService:AtividadeService,
+
+    private readonly matriculaService: MatriculaService,
   ) {}
   
   async create(dto: CreateTurmaDto) {
@@ -107,5 +110,9 @@ export class TurmaService {
 
   async listarAtividades(id:number){
     return await this.atividadeService.listarAtividadesPorTurma(id);
+  }
+
+  async listarMatriculas(id:number){
+    return await this.matriculaService.listarMatriculasPorTurma(id)
   }
 }

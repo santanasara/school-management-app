@@ -17,6 +17,11 @@ export class TurmaController {
     return this.turmaService.listarAtividades(+id);
   }
 
+  @Get('/:turmaId/matricula')
+  listarMatriculas(@Param('turmaId') id: string) {
+    return this.turmaService.listarMatriculas(+id);
+  }
+
   @Get()
   findAll() {
     return this.turmaService.findAll();

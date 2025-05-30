@@ -11,6 +11,7 @@ import { DisciplinaModule } from './disciplina/disciplina.module';
 import { CursoModule } from './curso/curso.module';
 import { MatriculaModule } from './matricula/matricula.module';
 import { NotaModule } from './nota/nota.module';
+import { MaterialModule } from './material/material.module';
 import { AuthModule } from './auth/auth.module';
 
 function getEnvFilePath(): string {
@@ -41,6 +42,7 @@ function getEnvFilePath(): string {
     DisciplinaModule,
     MatriculaModule,
     NotaModule,
+    MaterialModule,
     AuthModule,
   ],
   controllers: [AppController],
