@@ -33,8 +33,8 @@ export class NotaService {
     return this.http.get<Nota>(`${this.apiUrl}/${id}`);
   }
   
-  updateNota(id: number, Nota: Nota): Observable<Nota> {
-    return this.http.patch<Nota>(`${this.apiUrl}/${id}`, Nota);
+  updateNota(nota: Nota): Observable<Nota> {
+    return this.http.patch<Nota>(`${this.apiUrl}/${nota.id}`, nota);
   }
     /*
 

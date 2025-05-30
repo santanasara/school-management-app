@@ -48,6 +48,7 @@ export class DialogNotasComponent implements OnInit {
   ngOnInit(): void {
 
     this.notaForm = this.fb.group({
+      id:[null],
       valor: [0.0, Validators.required],
       matricula: [this.matricula, Validators.required],
     });
@@ -58,11 +59,19 @@ export class DialogNotasComponent implements OnInit {
 
 
     if (this.notaForm.valid) {
-      this.notaService.createNota(this.notaForm.value).subscribe(() => {
+      const nota = this.notaForm.value;
+      if (nota.id) {
+        
+        this.notaService.updateNota(nota).subscribe(() => {
+          this.atualizarTurma();
+        });
 
-        this.atualizarTurma();
+      } else {
+        this.notaService.createNota(this.notaForm.value).subscribe(() => {
+          this.atualizarTurma();
+        });
 
-      });
+      }
     } else {
       console.log('Formulário inválido.');
     }
@@ -86,6 +95,10 @@ export class DialogNotasComponent implements OnInit {
     this.notaService.deleteNota(notaId).subscribe(nota => {
       this.atualizarTurma();
     })
+  }
+
+  editarNota(nota: Nota) {
+    this.notaForm.patchValue(nota);
   }
 
 }

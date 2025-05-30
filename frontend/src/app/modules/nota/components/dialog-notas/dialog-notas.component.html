@@ -21,7 +21,7 @@
             <div class="flex justify-between">
                 <button mat-raised-button color="primary" type="submit" [disabled]="notaForm.invalid"
                     class="flex-grow mr-2">
-                    Cadastrar
+                    {{!notaForm.get('id')?.value? "Cadastrar": "Alterar"}}
                 </button>
             </div>
         </form>
@@ -46,7 +46,9 @@
                         {{nota.valor}}
                     </td>
                     <td>
+                        <button mat-button color="primary" (click)="editarNota(nota)"><mat-icon>edit</mat-icon></button>
                         <button mat-button color="primary" (click)="deleteNota(nota.id)"><mat-icon>delete</mat-icon></button>
+
                     </td>
                 </tr>
             }
