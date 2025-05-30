@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMatriculaDto } from './dto/create-matricula.dto';
 import { UpdateMatriculaDto } from './dto/update-matricula.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { SituacaoMatricula } from './entities/SituacaoMatricula';
 import { Turma } from 'src/turma/entities/turma.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
+import { isBefore } from 'date-fns';
 
 @Injectable()
 export class MatriculaService {
@@ -17,9 +18,14 @@ export class MatriculaService {
   
     async create(createMatriculaDto: CreateMatriculaDto): Promise<Matricula> {
       let matricula = this.matriculaRepository.create(createMatriculaDto);
+      matricula.usuario = { id: 2} as Usuario;
+      if (!isBefore(new Date(), new Date(matricula.turma.dataInicial))) {
+        throw new BadRequestException('A tuma já iniciau, não é possível realizar a matrícula');
+      }
 
-      matricula.usuario = { id: 2 } as Usuario;
-      
+      if (await this.findByTurmaUsuario(matricula.usuario.id, matricula.turma.id)) {
+        throw new BadRequestException('Vocjé já esta matriculado');
+      }
       return this.matriculaRepository.save(matricula);
     }
   
@@ -67,5 +73,15 @@ export class MatriculaService {
     async remove(id: number): Promise<void> {
       const matricula = await this.findOne(id);
       await this.matriculaRepository.remove(matricula);
+    }
+
+    async findByTurmaUsuario(idUsuario: number, idTUrma: number): Promise<Matricula | null> {
+      const matricula = await this.matriculaRepository.createQueryBuilder('matricula')
+        .leftJoinAndSelect('matricula.turma', 'turma')
+        .leftJoinAndSelect('matricula.usuario', 'usuario')
+        .where("1 = 1")
+        .andWhere('turma.id = :idTUrma AND usuario.id = :idUsuario', { idTUrma: idTUrma, idUsuario: idUsuario }).getOne();
+
+      return matricula;
     }
 }

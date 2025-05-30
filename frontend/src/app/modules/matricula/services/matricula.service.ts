@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Matricula } from '../models/matricula.model';
 import { environment } from '../../../../environments/environments'; 
 
@@ -17,7 +17,12 @@ export class MatriculaService {
   }
 
   createMatricula(Matricula: Matricula): Observable<Matricula> {
-    return this.http.post<Matricula>(this.apiUrl, Matricula);
+    return this.http.post<Matricula>(this.apiUrl, Matricula).pipe(
+    catchError(error => {
+      console.error('Erro ao criar matrícula:', error);
+      return throwError(() => error); // reemite o erro para ser tratado por quem consome
+    })
+  );
   }
 
   deleteMatricula(id: number): Observable<void> {

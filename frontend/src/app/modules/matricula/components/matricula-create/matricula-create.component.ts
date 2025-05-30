@@ -52,9 +52,15 @@ export class MatriculaCreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.matriculaForm.valid) {
-      this.matriculaService.createMatricula(this.matriculaForm.value).subscribe(() => {
-        console.log('Matricula criada com sucesso!');
-        this.router.navigate(['/matriculas']);
+      this.matriculaService.createMatricula(this.matriculaForm.value).subscribe({
+        next: () => {
+          console.log('Matricula criada com sucesso!');
+          this.router.navigate(['/matriculas']);
+        },
+        error: (err) => {
+          console.error('Erro ao criar matrícula:', err.error.message);
+          window.alert(err.error.message);
+        }
       });
     } else {
       console.log('Formulário inválido.');
