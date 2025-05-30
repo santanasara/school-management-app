@@ -22,7 +22,8 @@ export class LayoutComponent {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   logout(): void {
     this.authService.logout();

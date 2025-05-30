@@ -4,12 +4,20 @@ import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { Observable, } from "rxjs";
 import { Matricula } from "../../../matricula/models/matricula.model";
+import { MatIconModule } from "@angular/material/icon";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-turma-detalhe-matricula',
-  imports: [MatTableModule, CommonModule],
+  imports: [
+    MatTableModule, 
+    CommonModule,
+    MatIconModule,
+    RouterLink
+  ],
   templateUrl: './matriculas.component.html',
-  styleUrl: './matriculas.component.css'
+  styleUrl: './matriculas.component.css',
+  standalone: true,
 })
 export class MatriculasComponent {
   turmaId = input.required<number>();
@@ -24,6 +32,7 @@ export class MatriculasComponent {
   displayedColumns: string[] = [
     'nome',
     'email',
+    'acoes'
   ]; 
 
 }

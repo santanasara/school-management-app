@@ -22,7 +22,8 @@ import { MatButtonModule } from "@angular/material/button";
     MatButtonModule,
   ],
   templateUrl: './atividade.component.html',
-  styleUrl: './atividade.component.css'
+  styleUrl: './atividade.component.css',
+  standalone: true,
 })
 export class AtividadeComponent {
   form: FormGroup;
