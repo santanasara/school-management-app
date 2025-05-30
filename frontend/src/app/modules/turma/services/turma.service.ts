@@ -54,5 +54,4 @@ export class TurmaService {
     console.log('Carregando turmas disponíveis...');
     return this.http.get<Turma[]>(this.apiUrl+'/turmas-disponiveis');
   }
-
 }

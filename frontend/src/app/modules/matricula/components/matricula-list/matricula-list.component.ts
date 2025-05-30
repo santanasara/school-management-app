@@ -16,6 +16,7 @@ import { TurmaService } from '../../../turma/services/turma.service';
 import { Turma } from '../../../turma/models/turma.model';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 
+
 @Component({
   selector: 'app-matricula-list',
   standalone: true,
@@ -139,6 +140,7 @@ export class MatriculaListComponent implements OnInit {
 
   getNomeTurmaFromTurma(turma: Turma) {
     return turma?.nome?turma?.nome:turma?.disciplina?.nome;
+
   }
   
 }
