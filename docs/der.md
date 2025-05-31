@@ -53,15 +53,6 @@ erDiagram
     date data_lancamento
   }
 
-  MENSAGEM {
-    int id
-    string assunto
-    string corpo
-    int remetente_id
-    int destinatario_id
-    date data_envio
-  }
-
   ATIVIDADE {
     int id
     string titulo
@@ -73,8 +64,6 @@ erDiagram
   PESSOA ||--|| USUARIO : e
 
   USUARIO ||--o{ MATRICULA : participa
-  USUARIO ||--o{ MENSAGEM : envia
-  USUARIO ||--o{ MENSAGEM : recebe
   USUARIO ||--o{ TURMA : leciona
   USUARIO }o--o{ PERMISSAO : tem
 
