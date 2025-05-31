@@ -83,7 +83,5 @@ erDiagram
 
   TURMA ||--o{ MATRICULA : contem
   TURMA ||--o{ ATIVIDADE : possui
-  TURMA ||--o{ MATERIAL : possui
-
   MATRICULA ||--o{ NOTA : recebe
 ```
