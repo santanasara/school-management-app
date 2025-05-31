@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { LoginComponent } from './modules/auth/components/login';
 import { UnauthorizedComponent } from './modules/auth/components/unauthorized/unauthorized.component';
+import { ParticipanteTurmaGuard } from './modules/turma/services/participante-turma.guard';
 
 export const routes: Routes = [
   // Rotas para a funcionalidade de Notas
@@ -203,6 +204,7 @@ export const routes: Routes = [
             .then(m => m.TurmaComponent),
       },
       {
+        canActivate: [ParticipanteTurmaGuard],
         path: ':id',
         loadComponent: () =>
           import('./modules/turma/turma-detalhe/turma-detalhe.component')
