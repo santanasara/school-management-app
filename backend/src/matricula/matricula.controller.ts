@@ -18,6 +18,7 @@ export class MatriculaController {
   @Roles('admin', 'prof', 'aluno')
   @Post()
   create(@Body() createMatriculaDto: CreateMatriculaDto, @Request() req) {
+    //console.log(createMatriculaDto)
     return this.matriculaService.create(createMatriculaDto, req.user);
   }
 

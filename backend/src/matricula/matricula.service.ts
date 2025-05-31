@@ -20,9 +20,8 @@ export class MatriculaService {
       private readonly usuarioRepository: Repository<Usuario>,
     ) {}
   
-    async create(createMatriculaDto: CreateMatriculaDto, user: any ): Promise<Matricula> {
-
-      const turma = await this.turmaRepository.findOneBy({ id: createMatriculaDto.turmaId });
+    async create(createMatriculaDto: any, user: any ): Promise<Matricula> {
+      const turma = await this.turmaRepository.findOneBy({ id: createMatriculaDto.turma.id });
       if (!turma) {
         throw new NotFoundException('Turma não encontrada');
       }

@@ -79,10 +79,10 @@ async function bootstrap() {
   await atividadeService.create(atividade3);
   await atividadeService.create(atividade4);
 
-  await matricuaService.create({turmaId:1, usuarioId: 3})
-  await matricuaService.create({turmaId:1, usuarioId: 6})
-  await matricuaService.create({turmaId:2, usuarioId: 3})
-  await matricuaService.create({turmaId:3, usuarioId: 6})
+  //await matricuaService.create({turmaId:1, usuarioId: 3})
+  //await matricuaService.create({turmaId:1, usuarioId: 6})
+  //await matricuaService.create({turmaId:2, usuarioId: 3})
+  //await matricuaService.create({turmaId:3, usuarioId: 6})
 
   await app.close();
 }

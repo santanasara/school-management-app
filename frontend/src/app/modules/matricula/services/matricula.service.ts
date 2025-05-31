@@ -17,6 +17,7 @@ export class MatriculaService {
   }
 
   createMatricula(Matricula: Matricula): Observable<Matricula> {
+    console.log('Criando matrícula:', Matricula);
     return this.http.post<Matricula>(this.apiUrl, Matricula).pipe(
     catchError(error => {
       console.error('Erro ao criar matrícula:', error);
