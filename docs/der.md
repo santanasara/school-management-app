@@ -46,14 +46,6 @@ erDiagram
     date data_matricula
   }
 
-  MATERIAL {
-    int id
-    string titulo
-    string tipo
-    string link_arquivo
-    int disciplina_id
-  }
-
   NOTA {
     int id
     int matricula_id
