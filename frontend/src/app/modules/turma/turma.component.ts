@@ -12,8 +12,8 @@ import { TurmaService } from './services/turma.service';
 import { UsuarioService } from '../usuario/usuario.service';
 import { DisciplinaService } from '../disciplina/services/disciplina.service';
 import { Turma } from './models/turma.model';
-import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/services/auth';
 
 @Component({
   selector: 'app-turma',
@@ -27,7 +27,6 @@ import { Router } from '@angular/router';
     MatNativeDateModule,
     MatButtonModule,
     MatTableModule,
-    RouterLink
   ],
   standalone: true,
   templateUrl: './turma.component.html',
@@ -39,6 +38,7 @@ export class TurmaComponent {
   private service = inject(TurmaService);
   private disciplinaService = inject(DisciplinaService);
   private usuarioService = inject(UsuarioService);
+  private authService = inject(AuthService)
   private router = inject(Router);
 
   turmas$ = this.service.listar();
@@ -67,6 +67,10 @@ export class TurmaComponent {
       disciplinaId: [null],
       instrutorId: [null],
     });
+  }
+
+  usuarioAdmin(){
+    return this.authService.hasRole(['admin'])
   }
 
   salvar() {

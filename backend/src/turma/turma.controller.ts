@@ -10,44 +10,47 @@ import { Roles } from 'src/auth/decorators/roles.decorator';
 export class TurmaController {
   constructor(private readonly turmaService: TurmaService) {}
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   @Post()
   create(@Body() createTurmaDto: CreateTurmaDto) {
     return this.turmaService.create(createTurmaDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/:turmaId/atividade')
   listarAtividades(@Param('turmaId') id: string) {
     return this.turmaService.listarAtividades(+id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/:turmaId/matricula')
   listarMatriculas(@Param('turmaId') id: string) {
     return this.turmaService.listarMatriculas(+id);
   }
 
-  
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'prof', 'aluno')
   @Get("/turmas-disponiveis")
   findAllTurmasDisponiveis() {
     return this.turmaService.findAllTurmasDisponiveis();
   }
-/*
-  @Get()
-  findAll() {
-    return this.turmaService.findAll();
-  }
-*/
+
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.turmaService.findOne(+id);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTurmaDto: UpdateTurmaDto) {
     return this.turmaService.update(+id, updateTurmaDto);
   }
 
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.turmaService.remove(+id);
