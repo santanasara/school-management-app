@@ -14,7 +14,7 @@
     <ng-container matColumnDef="acoes">
       <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
       <mat-cell *matCellDef="let matricula"> 
-        <button mat-button color="primary" [routerLink]="['/notas', turmaId()]"><mat-icon>note_add</mat-icon></button>
+        <button *ngIf="usuarioProfessor()" mat-button color="primary" [routerLink]="['/notas', turmaId()]"><mat-icon>note_add</mat-icon></button>
       </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

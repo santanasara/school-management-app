@@ -11,6 +11,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatButtonModule } from "@angular/material/button";
+import { AuthService } from "../../auth/services/auth";
 
 @Component({
   selector: 'app-atividade',
@@ -40,6 +41,7 @@ export class AtividadeComponent {
   private atividadeService = inject(AtividadeService);
 
   atividades$: Observable<Atividade[]> | undefined;
+  private authService = inject(AuthService)
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -55,19 +57,24 @@ export class AtividadeComponent {
     this.atividades$ = this.turmaService.listarAtividades(this.turmaId());
   }
 
+  usuarioAdmin(){
+    return this.authService.hasRole(['admin'])
+  }
+
+  usuarioProfessor(){
+    return this.authService.hasRole(['prof'])
+  }
+
   salvar() {
-    console.log("chegou em salvar")
+
     const atividade = this.form.value;
     if (this.form.valid) {
-      console.log("é valido")
       if (atividade.id) {
-        console.log("atividade tem id")
         this.atividadeService.alterar(atividade.id, {...atividade, turmaId:this.turmaId()}).subscribe(() => {
           this.atividades$ = this.turmaService.listarAtividades(this.turmaId());
           this.cancelarEdicao();
         });
       } else {
-        console.log("chegou", )
         this.atividadeService.criar({...atividade, turmaId:this.turmaId()}).subscribe(() => {
           this.atividades$ = this.turmaService.listarAtividades(this.turmaId());
           this.cancelarEdicao();
@@ -75,7 +82,6 @@ export class AtividadeComponent {
       }
 
     } else {
-      console.log("não é valido")
       this.form.markAllAsTouched();
     }
   }

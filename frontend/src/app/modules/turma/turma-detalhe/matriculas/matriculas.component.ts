@@ -6,6 +6,7 @@ import { Observable, } from "rxjs";
 import { Matricula } from "../../../matricula/models/matricula.model";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterLink } from "@angular/router";
+import { AuthService } from "../../../auth/services/auth";
 
 @Component({
   selector: 'app-turma-detalhe-matricula',
@@ -22,6 +23,7 @@ import { RouterLink } from "@angular/router";
 export class MatriculasComponent {
   turmaId = input.required<number>();
   private turmaService = inject(TurmaService);
+  private authService = inject(AuthService)
 
   matriculas$: Observable<Matricula[]> | undefined;
 
@@ -34,5 +36,9 @@ export class MatriculasComponent {
     'email',
     'acoes'
   ]; 
+
+  usuarioProfessor(){
+    return this.authService.hasRole(['prof'])
+  }
 
 }
